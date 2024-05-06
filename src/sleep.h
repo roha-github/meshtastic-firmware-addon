@@ -4,6 +4,11 @@
 #include "Observer.h"
 #include "configuration.h"
 
+//>>> power timer switch
+static uint32_t pts_shutdowntime_sec = 0;      // shutdown time until next hour
+static bool     pts_saveprefs_flag = false;    // reduce flash write ops
+//<<<
+
 void doDeepSleep(uint32_t msecToWake, bool skipPreflight), cpuDeepSleep(uint32_t msecToWake);
 
 #ifdef ARCH_ESP32
