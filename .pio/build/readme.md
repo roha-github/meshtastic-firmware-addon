@@ -3,6 +3,7 @@
 | Device | Firmware |
 |---|---|
 | T-LoRa 2.1 1.6 | firmware-tlora-v2-1-1_6-2.3.4.addons-power-timer-switch.bin |
+| Heltec 2.1 | firmware-heltec-v2_1-2.3.4.addons-power-timer-switch.factory.bin |
 
 ## Install esptool
 
