@@ -19,7 +19,7 @@ pip3 install --upgrade esptool
 
 ```
 .\python-3-12-meshtastic\Scripts\activate
-cd python-3-12-meshtastic\meshtastic-firmware-2.2.23.5672e68
+cd python-3-12-meshtastic\meshtastic-firmware-2.3.4.ea61808
 device-install.bat -f firmware-tlora-v2-1-1_6-2.3.4.addons-power-timer-switch.factory.bin
 
 Trying to flash update firmware-tlora-v2-1-1_6-2.3.4.addons-power-timer-switch.factory.bin, but first erasing and writing system information"
