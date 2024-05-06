@@ -19,6 +19,10 @@
 #include "meshUtils.h"
 #include "sleep.h"
 
+//>>> power timer switch
+#include "gps/RTC.h"                        // use real time clock
+//<<<
+
 // Working USB detection for powered/charging states on the RAK platform
 #ifdef NRF_APM
 #include "nrfx_power.h"
@@ -69,7 +73,7 @@ static const uint8_t ext_chrg_detect_value = EXT_CHRG_DETECT_VALUE;
 #endif
 #endif
 
-#if HAS_TELEMETRY && !MESHTASTIC_EXCLUDE_ENVIRONMENTAL_SENSOR && !defined(ARCH_PORTDUINO)
+#if HAS_TELEMETRY && !defined(ARCH_PORTDUINO)
 INA260Sensor ina260Sensor;
 INA219Sensor ina219Sensor;
 INA3221Sensor ina3221Sensor;
@@ -184,7 +188,7 @@ class AnalogBatteryLevel : public HasBatteryLevel
     virtual uint16_t getBattVoltage() override
     {
 
-#if HAS_TELEMETRY && !defined(ARCH_PORTDUINO) && !defined(HAS_PMU) && !MESHTASTIC_EXCLUDE_ENVIRONMENTAL_SENSOR
+#if defined(HAS_TELEMETRY) && !defined(ARCH_PORTDUINO) && !defined(HAS_PMU)
         if (hasINA()) {
             LOG_DEBUG("Using INA on I2C addr 0x%x for device battery voltage\n", config.power.device_battery_ina_address);
             return getINAVoltage();
@@ -223,17 +227,7 @@ class AnalogBatteryLevel : public HasBatteryLevel
             raw = raw / BATTERY_SENSE_SAMPLES;
             scaled = operativeAdcMultiplier * ((1000 * AREF_VOLTAGE) / pow(2, BATTERY_SENSE_RESOLUTION_BITS)) * raw;
 #endif
-
-            if (!initial_read_done) {
-                // Flush the smoothing filter with an ADC reading, if the reading is plausibly correct
-                if (scaled > last_read_value)
-                    last_read_value = scaled;
-                initial_read_done = true;
-            } else {
-                // Already initialized - filter this reading
-                last_read_value += (scaled - last_read_value) * 0.5; // Virtual LPF
-            }
-
+            last_read_value += (scaled - last_read_value) * 0.5; // Virtual LPF
             // LOG_DEBUG("battery gpio %d raw val=%u scaled=%u filtered=%u\n", BATTERY_PIN, raw, (uint32_t)(scaled), (uint32_t)
             // (last_read_value));
         }
@@ -367,12 +361,10 @@ class AnalogBatteryLevel : public HasBatteryLevel
     const float noBatVolt = (OCV[NUM_OCV_POINTS - 1] - 500) * NUM_CELLS;
     // Start value from minimum voltage for the filter to not start from 0
     // that could trigger some events.
-    // This value is over-written by the first ADC reading, it the voltage seems reasonable.
-    bool initial_read_done = false;
     float last_read_value = (OCV[NUM_OCV_POINTS - 1] * NUM_CELLS);
     uint32_t last_read_time_ms = 0;
 
-#if HAS_TELEMETRY && !MESHTASTIC_EXCLUDE_ENVIRONMENTAL_SENSOR && !defined(ARCH_PORTDUINO)
+#if defined(HAS_TELEMETRY) && !defined(ARCH_PORTDUINO)
     uint16_t getINAVoltage()
     {
         if (nodeTelemetrySensorsMap[meshtastic_TelemetrySensorType_INA219].first == config.power.device_battery_ina_address) {
@@ -512,7 +504,12 @@ void Power::shutdown()
 {
     LOG_INFO("Shutting down\n");
 
-#if defined(ARCH_NRF52) || defined(ARCH_ESP32)
+#ifdef HAS_PMU
+    if (pmu_found == true) {
+        PMU->setChargingLedMode(XPOWERS_CHG_LED_OFF);
+        PMU->shutdown();
+    }
+#elif defined(ARCH_NRF52) || defined(ARCH_ESP32)
 #ifdef PIN_LED1
     ledOff(PIN_LED1);
 #endif
@@ -522,7 +519,14 @@ void Power::shutdown()
 #ifdef PIN_LED3
     ledOff(PIN_LED3);
 #endif
-    doDeepSleep(DELAY_FOREVER, false);
+//>>> power timer switch
+    // doDeepSleep(DELAY_FOREVER, false);
+    if (pts_shutdowntime_sec > 0) {
+      doDeepSleep(pts_shutdowntime_sec*1000, false);
+    } else {
+      doDeepSleep(DELAY_FOREVER, false);
+    }
+//<<<
 #endif
 }
 
@@ -569,8 +573,89 @@ void Power::readPowerStatus()
         const PowerStatus powerStatus2 = PowerStatus(
             hasBattery ? OptTrue : OptFalse, batteryLevel->isVbusIn() || NRF_USB == OptTrue ? OptTrue : OptFalse,
             batteryLevel->isCharging() || NRF_USB == OptTrue ? OptTrue : OptFalse, batteryVoltageMv, batteryChargePercent);
-        LOG_DEBUG("Battery: usbPower=%d, isCharging=%d, batMv=%d, batPct=%d\n", powerStatus2.getHasUSB(),
-                  powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent());
+//>>> power timer switch
+        // LOG_DEBUG("Battery: usbPower=%d, isCharging=%d, batMv=%d, batPct=%d\n", powerStatus2.getHasUSB(),
+        //          powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent());
+        //
+        // --- magic values to setup power timer switch ---
+        // config.power.on_battery_shutdown_after_secs = 1791    # timer switch enabled    (cfg % 10 == 1 enabled >= 90% on)
+        //                                               xxx2    # save every interval ~ 24 write ops per day
+        //                                               xxx3    # save only long intervals ~ 4 write ops per day (every 6 hours)
+        // config.power.sds_secs                       = 86405   # 5min per hour           (cfg % 100 == 5)
+        // config.power.ls_secs                        = 86326   # 15min=5+2x5 every 6hour (cfg % 100 - % 10)
+
+        // config
+        uint8_t  pts_cfg_mode = (config.power.on_battery_shutdown_after_secs % 10);  // power timer switch mode
+        bool     pts_cfg_enabled = (pts_cfg_mode >= 1);                              // power timer switch enabled
+        bool     pts_cfg_saveshort = (pts_cfg_mode == 2);                            // write prefs every hour
+        bool     pts_cfg_savelong = (pts_cfg_mode == 3);                             // write prefs only long intervals
+        uint8_t  pts_cfg_alwayson_pct = (config.power.on_battery_shutdown_after_secs % 100) - pts_cfg_mode;  // percentage
+        uint32_t pts_cfg_short_uptimer_sec = (config.power.sds_secs % 100) * 60;     // uptime short and long
+        uint8_t  pts_cfg_long_interval = (config.power.ls_secs % 10);                // interval hours for long uptime
+        uint8_t  pts_cfg_long_multipier = ((config.power.ls_secs % 100)-pts_cfg_long_interval)/10;           // multiplier
+        uint32_t pts_cfg_long_uptimer_sec = pts_cfg_short_uptimer_sec + pts_cfg_short_uptimer_sec * pts_cfg_long_multipier;
+
+        // time
+        uint32_t pts_dev_uptime_sec = millis()/1000;                          // time since lastest restart
+        bool     pts_rtc_exists = (getRTCQuality() >= 2);                     // real time (2:other node, 3:ntp, 4:gps)
+        uint32_t pts_rtc_sec = getValidTime(RTCQuality::RTCQualityDevice);    // seconds since 1970..2036
+        uint32_t pts_rtc_sec_day = (pts_rtc_sec % SEC_PER_DAY);               // seconds since midnight
+        uint32_t pts_rtc_sec_hour = (pts_rtc_sec_day % SEC_PER_HOUR);         // seconds since hour
+        uint32_t pts_rtc_hour = (pts_rtc_sec_day / SEC_PER_HOUR);             // current hour
+
+        // timer switch
+        pts_shutdowntime_sec = 0;                                             // shutdown if needed
+        pts_saveprefs_flag = false;                                           // disable write ops per default
+        if (pts_cfg_enabled) {                                                // power timer switch enabled
+          pts_saveprefs_flag = pts_cfg_saveshort;                             // enable short write ops                              
+          if (pts_rtc_exists) {                                               // real time clock exists
+            if (pts_cfg_long_interval > 0) {                                  // avoid IntegerDivideByZero
+              if ((pts_rtc_hour % pts_cfg_long_interval) == 0) {              // long intervals hour
+                if (pts_rtc_sec_hour > pts_cfg_long_uptimer_sec ) {           // timeout after long-uptime
+                  pts_shutdowntime_sec = SEC_PER_HOUR - pts_rtc_sec_hour;     // restart next hours
+                  if (pts_cfg_savelong == true) {
+                    pts_saveprefs_flag = true;                                // enable long write ops
+                  }
+                }
+              } else {                                                        // short interval hours
+                if (pts_rtc_sec_hour > pts_cfg_short_uptimer_sec ) {          // timeout after short-uptime   
+                  pts_shutdowntime_sec = SEC_PER_HOUR - pts_rtc_sec_hour;     // restart next hour
+                }
+              }
+            } else {                                                          // short intervals
+              if (pts_rtc_sec_hour > pts_cfg_short_uptimer_sec ) {            // timeout after short-uptime   
+                pts_shutdowntime_sec = SEC_PER_HOUR - pts_rtc_sec_hour;       // restart next hour
+              }
+            }
+          } else {
+            if (pts_dev_uptime_sec > pts_cfg_short_uptimer_sec ) {            // timeout after short-uptime   
+              pts_shutdowntime_sec = SEC_PER_HOUR - pts_dev_uptime_sec;       // restart next hour
+            }
+          }
+          if (powerStatus2.getBatteryChargePercent() > pts_cfg_alwayson_pct){ // fully charged 
+            if (powerStatus2.getHasUSB() == false) {                          // not usb powered   
+              pts_shutdowntime_sec = 0;                                       // don't shutdown
+            }
+          }
+        }
+
+        // DEBUG | ??:??:?? 161 [Power] Battery{PTS}: usbPower=1, isCharging=1, batMv=4650, batPct=100, cfgOBS=1891, cfgSDS=86405, cfgLS=86326, uptS=161, rtcHS=0, telS=0, sdtS=0
+        // DEBUG | 00:09:06 241 [Power] Battery{PTS}: usbPower=1, isCharging=1, batMv=4606, batPct=100, cfgOBS=1891, cfgSDS=86405, cfgLS=86326, uptS=241, rtcHS=546, telS=0, sdtS=0
+        LOG_DEBUG("Battery{PTS}: usbPower=%d, isCharging=%d, batMv=%d, batPct=%d, cfgOBS=%d, cfgSDS=%d, cfgLS=%d, uptS=%d, rtcHS=%d, sdtS=%d\n", powerStatus2.getHasUSB(),
+                  powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent(),
+                  config.power.on_battery_shutdown_after_secs, config.power.sds_secs, config.power.ls_secs,
+                  pts_dev_uptime_sec, pts_rtc_sec_hour, pts_shutdowntime_sec) ;
+
+        if (pts_shutdowntime_sec > 0) {
+          LOG_DEBUG("Battery{PTS}: doDeepSleep(%d s)\n",pts_shutdowntime_sec);
+          // powerFSM.trigger(EVENT_SHUTDOWN);                                // shutdown - not stable triggert
+          // powerFSM.trigger(EVENT_LOW_BATTERY);                             // low battery - not stable triggert
+          // doDeepSleep(pts_shutdowntime_sec*1000, false);                   // shutdown - without warnung
+          if (shutdownAtMsec <= 0) {
+            shutdownAtMsec = millis() + DEFAULT_SHUTDOWN_SECONDS * 1000;      // shutdowntimer - buildin used by main
+          }
+        }
+//<<<
         newStatus.notifyObservers(&powerStatus2);
 #ifdef DEBUG_HEAP
         if (lastheap != memGet.getFreeHeap()) {
