@@ -10,6 +10,8 @@ This is a fork of the Meshtastic firmware to provide a new feature called "Power
 
 The objective is to be able to operate a router for several days even with very small solar panels and batteries.
 
+![Monitoring-Power-Timer-Switch](/.pio/build/thingspeak-monitoring-power-timer-switch.png)
+
 ## Configuration
 
 This feature uses the power configuration:
