@@ -1,4 +1,4 @@
-# Meshtastic Firmware - Addons (Fork)
+# Meshtastic Firmware - Addon (Fork)
 
 This is a fork of the Meshtastic firmware to provide a new feature called "Power Timer Switch".
 
@@ -58,3 +58,30 @@ An interval can be defined in which the node remains switched on for a longer up
 
 * 0 = interval deactivated
 * 2..8 = interval of 2 .. 8 hours (12x ... 3x a day)
+
+## Timer variant
+
+* 220mA × 15s boot
+* 120mA × 5s TX nodeinfo to mesh
+* 60mA × 40s RX read from mesh
+* avg: 105mA for 60 seconds (boot)
+* avg: 25mA standby ESP32 (10% TX, 20dBm)
+
+| long | short | pause | mAh/d |
+|---|---|---|---|
+| 120m | 5m | 115m | 89mAh |
+| 60m | 5m | 55m | 105mAh |
+| 30m | 5m | 25m | 175mAh |
+| 20m | 5m | 15m | 253mAh |
+
+By default nodes send time inside position frame every 900 seconds. Once a day a timer switch node should listen for minimum 15 minutes to get time from other nodes.
+
+## Todos
+
+* re-init RTC after resume
+* long uptime without RTC every 24h
+* buffer sensor data at RTC
+* buffer chat data at RTC
+* upload telemetry to thinkspeak
+* upload sensor to thinkspeak
+* interactive chatbot
