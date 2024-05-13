@@ -35,10 +35,11 @@ bool FloodingRouter::shouldFilterReceived(const meshtastic_MeshPacket *p)
 
 void FloodingRouter::sniffReceived(const meshtastic_MeshPacket *p, const meshtastic_Routing *c)
 {
-    bool isAckorReply = (p->which_payload_variant == meshtastic_MeshPacket_decoded_tag) && (p->decoded.request_id != 0);
-    if (isAckorReply && p->to != getNodeNum() && p->to != NODENUM_BROADCAST) {
-        // do not flood direct message that is ACKed or replied to
-        LOG_DEBUG("Receiving an ACK or reply not for me, but don't need to rebroadcast this direct message anymore.\n");
+    bool isAck =
+        ((c && c->error_reason == meshtastic_Routing_Error_NONE)); // consider only ROUTING_APP message without error as ACK
+    if (isAck && p->to != getNodeNum()) {
+        // do not flood direct message that is ACKed
+        LOG_DEBUG("Receiving an ACK not for me, but don't need to rebroadcast this direct message anymore.\n");
         Router::cancelSending(p->to, p->decoded.request_id); // cancel rebroadcast for this DM
     }
     if ((p->to != getNodeNum()) && (p->hop_limit > 0) && (getFrom(p) != getNodeNum())) {
@@ -46,7 +47,18 @@ void FloodingRouter::sniffReceived(const meshtastic_MeshPacket *p, const meshtas
             if (config.device.role != meshtastic_Config_DeviceConfig_Role_CLIENT_MUTE) {
                 meshtastic_MeshPacket *tosend = packetPool.allocCopy(*p); // keep a copy because we will be sending it
 
-                tosend->hop_limit--; // bump down the hop count
+//>>> zero hop repeater
+                // tosend->hop_limit--; // bump down the hop count
+                if (((config.device.node_info_broadcast_secs % 1) == 1) // enabled zero hots
+                && (config.device.role == meshtastic_Config_DeviceConfig_Role_REPEATER
+                 || config.device.role == meshtastic_Config_DeviceConfig_Role_ROUTER
+                 || config.device.role == meshtastic_Config_DeviceConfig_Role_ROUTER_CLIENT
+                )) {
+                  LOG_DEBUG("{ZHR} repeater don't reduce hop\n");
+                } else {
+                  tosend->hop_limit--; // bump down the hop count
+                }
+//<<<
 
                 LOG_INFO("Rebroadcasting received floodmsg to neighbors\n");
                 // Note: we are careful to resend using the original senders node id
