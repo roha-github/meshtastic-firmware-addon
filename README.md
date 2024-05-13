@@ -29,7 +29,7 @@ config.power.ls_secs                        = 86326   # 15min=5+2x5 every 6hour 
 **Extend range:**
 
 * towards: sender(3) > repeater_a(3) > repeater_b(3) > hop_a(3) > hop_b(2) > hop_c(1) > receiver(0)
-* backwards: sender(0) > repeater_a(1) > repeater_b(1) > hop_a(1) > hop_b(2) > hop_c(3) < receiver(3)
+* backwards: sender(0) < repeater_a(1) < repeater_b(1) < hop_a(1) < hop_b(2) < hop_c(3) < receiver(3)
 * useful for repeater chain in remote locations or caves - 3 hops are not enough to reach the mesh
 
 ## Power Timer Switch
