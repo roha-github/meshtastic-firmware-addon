@@ -2,7 +2,7 @@
 
 | Device | Firmware |
 |---|---|
-| T-LoRa 2.1 1.6 | firmware-tlora-v2-1-1_6-2.3.4.addons-power-timer-switch.bin |
+| T-LoRa 2.1 1.6 | firmware-tlora-v2-1-1_6-2.3.4.202405132333.factory.bin |
 | Heltec 2.1 | firmware-heltec-v2_1-2.3.4.addons-power-timer-switch.factory.bin |
 | Heltec 3 | has errors "E (304954) RTCIO: rtc_gpio_isolate(171): RTCIO number error" |
 
@@ -16,12 +16,12 @@ pip3 install --upgrade esptool
 ## Download 2.3.4 and addon
 
 * [firmware-2.3.8.d490a33.zip](https://github.com/meshtastic/firmware/releases/download/v2.3.8.d490a33/firmware-2.3.8.d490a33.zip)
-* firmware-tlora-v2-1-1_6-2.3.4.addons-power-timer-switch.factory.bin
+* firmware-tlora-v2-1-1_6-2.3.4.202405132333.factory.bin
 
 ```
 .\python-3-12-meshtastic\Scripts\activate
 cd python-3-12-meshtastic\meshtastic-firmware-2.3.4.ea61808
-device-install.bat -f firmware-tlora-v2-1-1_6-2.3.4.addons-power-timer-switch.factory.bin
+device-install.bat -f firmware-tlora-v2-1-1_6-2.3.4.202405132333.factory.bin
 
 Trying to flash update firmware-tlora-v2-1-1_6-2.3.4.addons-power-timer-switch.factory.bin, but first erasing and writing system information"
 esptool.py v4.7.0
