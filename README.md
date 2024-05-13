@@ -32,6 +32,10 @@ config.power.ls_secs                        = 86326   # 15min=5+2x5 every 6hour 
 * backwards: sender(0) < repeater_a(1) < repeater_b(1) < hop_a(1) < hop_b(2) < hop_c(3) < receiver(3)
 * useful for repeater chain in remote locations or caves - 3 hops are not enough to reach the mesh
 
+The number of hops is limited to 3 by default. If a remote location already requires 3 hops to reach the first foreign node, then there are no hops left for responses from foreign nodes, unless everyone in the mesh would increase the hop limit.
+
+Meshtastic only forwards messages from nodes if the message ID for this node has not been forwarded within the last 10 minutes.
+
 ## Power Timer Switch
 
 **Reduce current consumption:**
