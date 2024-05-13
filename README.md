@@ -1,6 +1,38 @@
 # Meshtastic Firmware - Addon (Fork)
 
-This is a fork of the Meshtastic firmware to provide a new feature called "Power Timer Switch".
+This is a fork of the Meshtastic firmware to provide additional features
+
+* "Zero Hop Repeater" ~ unlimited repeater chain
+* "Power Timer Switch" ~ predefined shutdown and resume
+
+## Configuration hooks
+
+We use "special" values to configure the add-ons.
+
+### Zero Hop Repeater
+
+```
+config.device.node_info_broadcast_secs      = 3601    # 1 enabled | 0 disable zero hops
+config.device.role                          = REPEATER | ROUTER | ROUTER_CLIENT
+```
+
+### Power Timer Switch
+
+```
+config.power.on_battery_shutdown_after_secs = 1793    # timer switch enabled    (cfg % 10 == 1..3 enabled >= 90% on)
+config.power.sds_secs                       = 86405   # 5min per hour           (cfg % 100 == 5)
+config.power.ls_secs                        = 86326   # 15min=5+2x5 every 6hour (cfg % 100 - % 10)
+```
+
+## Zero Hop Repeater
+
+**Extend range:**
+
+* towards: sender(3) > repeater_a(3) > repeater_b(3) > hop_a(3) > hop_b(2) > hop_c(1) > receiver(0)
+* backwards: sender(0) > repeater_a(1) > repeater_b(1) > hop_a(1) > hop_b(2) > hop_c(3) < receiver(3)
+* useful for repeater chain in remote locations or caves - 3 hops are not enough to reach the mesh
+
+## Power Timer Switch
 
 **Reduce current consumption:**
 
@@ -12,7 +44,7 @@ The objective is to be able to operate a router for several days even with very 
 
 ![Monitoring-Power-Timer-Switch](/.pio/build/thingspeak-monitoring-power-timer-switch.png)
 
-## Configuration
+### Configuration
 
 This feature uses the power configuration:
 
@@ -29,11 +61,11 @@ This feature uses the power configuration:
 
 *) current as ROUTER with 10% TX at 20dBm
 
-### Alway-on (percentage)
+#### Alway-on (percentage)
 
 The node stays switched on when the battery is charged to over X0 percent. This option is intended for the node to be operated with a solar panel. The node remains permanently active on sunny days and the power-saving mode is activated on shady days.
 
-### Saving Mode (last digit)
+#### Saving Mode (last digit)
 
 This option can be used to prevent the configuration from being saved to the flash every time the device is shut down. 
 
@@ -42,24 +74,24 @@ This option can be used to prevent the configuration from being saved to the fla
 * 2 ~ Power Timer Switch enabled / save prefs enabled - every hour
 * 3 ~ Power Timer Switch enabled / save prefs enabled - every long interval
 
-### Uptime per hour (last two digits)
+#### Uptime per hour (last two digits)
 
 This option controls how many minutes the node is switched on per hour. It is always switched on on the hour if the node has received the time from another node or via GPS. Several time-controlled nodes synchronize via the time and expand the mesh network. Over time, human observers will notice that certain routers are online for a few minutes every hour. They can then adjust their communication accordingly.
 
-### Longer uptime (second last digit)
+#### Longer uptime (second last digit)
 
 It is recommended to switch on the node for 15 minutes every few hours. The regular interval for position with time is 15 minutes. Even without GPS, the node receives the time from other nodes and can therefore regularly align itself with the time. 
 
 The number is a multiplier for a supplement to the regular uptime. If the uptime is 5 minutes and the multiplier is 2, this results in a longer uptime of 15 minutes.
 
-### Longer uptime interval (last digit)
+#### Longer uptime interval (last digit)
 
 An interval can be defined in which the node remains switched on for a longer uptime. 
 
 * 0 = interval deactivated
 * 2..8 = interval of 2 .. 8 hours (12x ... 3x a day)
 
-## Timer variant
+### Timer variant
 
 * 220mA × 15s boot
 * 120mA × 5s TX nodeinfo to mesh
