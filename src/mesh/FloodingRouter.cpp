@@ -49,7 +49,7 @@ void FloodingRouter::sniffReceived(const meshtastic_MeshPacket *p, const meshtas
 
 //>>> zero hop repeater
                 // tosend->hop_limit--; // bump down the hop count
-                if (((config.device.node_info_broadcast_secs % 1) == 1) // enabled zero hots
+                if (((config.device.node_info_broadcast_secs % 10) == 1) // enabled zero hots
                 && (config.device.role == meshtastic_Config_DeviceConfig_Role_REPEATER
                  || config.device.role == meshtastic_Config_DeviceConfig_Role_ROUTER
                  || config.device.role == meshtastic_Config_DeviceConfig_Role_ROUTER_CLIENT
