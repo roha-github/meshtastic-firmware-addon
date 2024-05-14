@@ -154,6 +154,12 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * lorawan gateway for sensors [#3838](https://github.com/meshtastic/firmware/issues/3838)
 * variables for canned message (e.g. $rssi, $snr, $lat, $lon)
 * custom duty cycle [#2288](https://github.com/meshtastic/firmware/issues/2288)
+* use public wifi
+* auto confirm public wifi conditions
+* one button control e.g. for canned messages
+* Heltec Wireless Stick OLED-display [#3714](https://github.com/meshtastic/firmware/discussions/3714)
+* adjust hops tonown limit [#3833](https://github.com/meshtastic/firmware/discussions/3833)
+
 
 
 
