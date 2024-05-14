@@ -126,6 +126,10 @@ An interval can be defined in which the node remains switched on for a longer up
 
 By default nodes send time inside position frame every 900 seconds. Once a day a timer switch node should listen for minimum 15 minutes to get time from other nodes.
 
+## Released
+
+* gateway / zero hop repeater [#3437](https://github.com/meshtastic/firmware/issues/3437)
+
 ## Todos
 
 * ~~re-init RTC after resume~~
@@ -138,7 +142,16 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 
 ## Ideas
 
+* customize boot screen [#3362](https://github.com/meshtastic/firmware/issues/3362)
+* upload to Thingspeak [#3626](https://github.com/meshtastic/firmware/issues/3626)
 * changeable MAC address (node id)
-* use internal RTC temperature sensor
+* use internal RTC temperature sensor [#3883](https://github.com/meshtastic/firmware/issues/3883)
 * virtual waypoint (fake position)
+* message store to flash [#3664](https://github.com/meshtastic/firmware/issues/3664), [#3637](https://github.com/meshtastic/firmware/issues/3637)
+* lorawan gateway for sensors [#3838](https://github.com/meshtastic/firmware/issues/3838)
+
+
+
+
+
 
