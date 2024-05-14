@@ -7,7 +7,7 @@ This is a fork of the Meshtastic firmware to provide additional features
 
 ## Configuration hooks
 
-We use "special" values to configure the add-ons.
+We use "special" values to configure the add-ons and reuse default App and CLI.
 
 ### Zero Hop Repeater
 
@@ -23,6 +23,18 @@ config.power.on_battery_shutdown_after_secs = 1793    # timer switch enabled    
 config.power.sds_secs                       = 86405   # 5min per hour           (cfg % 100 == 5)
 config.power.ls_secs                        = 86326   # 15min=5+2x5 every 6hour (cfg % 100 - % 10)
 ```
+
+## Installation firmware
+
+The installation requires the esptool, the installer of the original firmware and the binary of the modified firmware.
+
+* Install esptool to upload new firmware
+* Download the original Meshtastic firmware installer
+* Download extended Meshtastic firmware binary 
+
+The newest binary you can download from [meshtastic-firmware-addon/tree/master/.pio/build](https://github.com/roha-github/meshtastic-firmware-addon/tree/master/.pio/build) or compile to your target hardware.
+
+
 
 ## Zero Hop Repeater
 
