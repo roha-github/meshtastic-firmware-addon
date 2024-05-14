@@ -3,6 +3,7 @@
 | Device | Build | Firmware |
 |---|---|---|
 | T-LoRa 2.1 1.6 | 202405132333d | firmware-tlora-v2-1-1_6-2.3.4.***.factory.bin |
+| T-Beam | 202405132333d | firmware-tbeam-2.3.4.***.factory.bin |
 | Heltec 2.1 | 202405132333d | firmware-heltec-v2_1-2.3.4.***.factory.bin |
 | Heltec 3 | 202405132333d | firmware-heltec-v3-2.3.4.***.factory.bin |
 
