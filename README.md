@@ -5,6 +5,8 @@ This is a fork of the Meshtastic firmware to provide additional features
 * "Zero Hop Repeater" ~ unlimited repeater chain
 * "Power Timer Switch" ~ predefined shutdown and resume
 
+These features will not be included in the official Meshtastic firmware.
+
 ## Configuration hooks
 
 We use "special" values to configure the add-ons and reuse default App and CLI.
@@ -126,7 +128,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 
 ## Todos
 
-* re-init RTC after resume
+* ~~re-init RTC after resume~~
 * long uptime without RTC every 24h
 * buffer sensor data at RTC
 * buffer chat data at RTC
