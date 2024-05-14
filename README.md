@@ -142,6 +142,8 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 
 ## Ideas
 
+* custom wifi power [#2267](https://github.com/meshtastic/firmware/issues/2267)
+* turn off wifi by voltage level [#2259](https://github.com/meshtastic/firmware/issues/2259)
 * customize boot screen [#3362](https://github.com/meshtastic/firmware/issues/3362)
 * customize message screen [#2427](https://github.com/meshtastic/firmware/issues/2427)
 * upload to Thingspeak [#3626](https://github.com/meshtastic/firmware/issues/3626)
@@ -150,6 +152,8 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * virtual waypoint (fake position)
 * message store to flash [#3664](https://github.com/meshtastic/firmware/issues/3664), [#3637](https://github.com/meshtastic/firmware/issues/3637)
 * lorawan gateway for sensors [#3838](https://github.com/meshtastic/firmware/issues/3838)
+* variables for canned message (e.g. $rssi, $snr, $lat, $lon)
+* custom duty cycle [#2288](https://github.com/meshtastic/firmware/issues/2288)
 
 
 
