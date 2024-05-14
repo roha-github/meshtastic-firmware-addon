@@ -1,10 +1,10 @@
 # Firmware builds
 
-| Device | Firmware |
-|---|---|
-| T-LoRa 2.1 1.6 | firmware-tlora-v2-1-1_6-2.3.4.202405132333.factory.bin |
-| Heltec 2.1 | firmware-heltec-v2_1-2.3.4.202405132333.bin |
-| Heltec 3 | has errors "E (304954) RTCIO: rtc_gpio_isolate(171): RTCIO number error" |
+| Device | Build | Firmware |
+|---|---|---|
+| T-LoRa 2.1 1.6 | 202405132333d | firmware-tlora-v2-1-1_6-2.3.4.***.factory.bin |
+| Heltec 2.1 | 202405132333d | firmware-heltec-v2_1-2.3.4.***.factory.bin |
+| Heltec 3 | 202405132333d | firmware-heltec-v3-2.3.4.***.factory.bin |
 
 ## Install esptool
 
