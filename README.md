@@ -143,6 +143,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 ## Ideas
 
 * customize boot screen [#3362](https://github.com/meshtastic/firmware/issues/3362)
+* customize message screen [#2427](https://github.com/meshtastic/firmware/issues/2427)
 * upload to Thingspeak [#3626](https://github.com/meshtastic/firmware/issues/3626)
 * changeable MAC address (node id)
 * use internal RTC temperature sensor [#3883](https://github.com/meshtastic/firmware/issues/3883)
