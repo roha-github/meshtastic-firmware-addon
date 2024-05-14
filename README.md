@@ -129,10 +129,16 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 ## Todos
 
 * ~~re-init RTC after resume~~
-* use internal RTC temperature sensor
 * long uptime without RTC every 24h
 * buffer sensor data at RTC
 * buffer chat data at RTC
 * upload telemetry to thinkspeak
 * upload sensor to thinkspeak
 * interactive chatbot
+
+## Ideas
+
+* changeable MAC address (node id)
+* use internal RTC temperature sensor
+* virtual waypoint (fake position)
+
