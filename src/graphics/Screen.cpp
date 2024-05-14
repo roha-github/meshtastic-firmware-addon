@@ -130,13 +130,29 @@ static void drawIconScreen(const char *upperMsg, OLEDDisplay *display, OLEDDispl
 //>>> power timer switch
     // const char *title = "meshtastic.org";
     // display->drawString(x + getStringCenteredX(title), y + SCREEN_HEIGHT - FONT_HEIGHT_MEDIUM, title);
-    if ((config.power.on_battery_shutdown_after_secs % 10) == 0) {
-      const char *title = "pts: no config";
-      display->drawString(x + getStringCenteredX(title), y + SCREEN_HEIGHT - FONT_HEIGHT_MEDIUM, title);
-    } else {
-      const char *title = "pts: ok enable";
-      display->drawString(x + getStringCenteredX(title), y + SCREEN_HEIGHT - FONT_HEIGHT_MEDIUM, title);
+    String title = "undefined";
+    if ((config.power.on_battery_shutdown_after_secs % 10) > 0
+     && (config.device.node_info_broadcast_secs % 10) == 1) {
+      title = "PTS+ ZHR+";
     }
+    else if ((config.power.on_battery_shutdown_after_secs % 10) > 0
+     && (config.device.node_info_broadcast_secs % 10) == 0) {
+      title = "PTS+ ZHR-";
+    } 
+    else if ((config.power.on_battery_shutdown_after_secs % 10) == 0
+     && (config.device.node_info_broadcast_secs % 10) == 1) {
+      title = "PTS- ZHR+";
+    } 
+    else {
+      title = "PTS? ZHR?";
+    }
+    display->setFont(FONT_SMALL);
+    display->drawString(x + getStringCenteredX(title), y + SCREEN_HEIGHT - FONT_HEIGHT_SMALL, title);
+    // info
+    title = "meshtastic/addon/d";
+    display->setFont(FONT_SMALL);
+    display->setTextAlignment(TEXT_ALIGN_LEFT);
+    display->drawString(x + getStringCenteredX(title), y + SCREEN_HEIGHT - 2*FONT_HEIGHT_SMALL - 1, title);
 //<<<
     display->setFont(FONT_SMALL);
 
