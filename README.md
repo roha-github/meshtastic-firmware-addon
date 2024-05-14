@@ -129,6 +129,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 ## Todos
 
 * ~~re-init RTC after resume~~
+* use internal RTC temperature sensor
 * long uptime without RTC every 24h
 * buffer sensor data at RTC
 * buffer chat data at RTC
