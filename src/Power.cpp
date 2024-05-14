@@ -524,7 +524,7 @@ void Power::shutdown()
     if (pts_shutdowntime_sec > 0) {
       doDeepSleep(pts_shutdowntime_sec*1000, false);
     } else {
-      doDeepSleep(DELAY_FOREVER, false);
+      doDeepSleep(DELAY_FOREVER, false); // doDeepSleep(30*1000, false); //+++ test
     }
 //<<<
 #endif
@@ -597,6 +597,11 @@ void Power::readPowerStatus()
 
         // time
         uint32_t pts_dev_uptime_sec = millis()/1000;                          // time since lastest restart
+        uint32_t pts_dev_rtcuptime = getTime(false);                          // time since start (or UTC time)
+        uint32_t pts_dev_sec_day = (pts_dev_rtcuptime % SEC_PER_DAY);         // seconds since first start
+        uint32_t pts_dev_sec_hour = (pts_dev_rtcuptime % SEC_PER_HOUR);       // seconds since hour interval
+        uint32_t pts_dev_hour = (pts_dev_rtcuptime / SEC_PER_HOUR);           // current hour interval
+
         bool     pts_rtc_exists = (getRTCQuality() >= 2);                     // real time (2:other node, 3:ntp, 4:gps)
         uint32_t pts_rtc_sec = getValidTime(RTCQuality::RTCQualityDevice);    // seconds since 1970..2036
         uint32_t pts_rtc_sec_day = (pts_rtc_sec % SEC_PER_DAY);               // seconds since midnight
@@ -608,7 +613,7 @@ void Power::readPowerStatus()
         pts_saveprefs_flag = false;                                           // disable write ops per default
         if (pts_cfg_enabled) {                                                // power timer switch enabled
           pts_saveprefs_flag = pts_cfg_saveshort;                             // enable short write ops                              
-          if (pts_rtc_exists) {                                               // real time clock exists
+          if (pts_rtc_exists) {                                               // --- real time clock exists ---
             if (pts_cfg_long_interval > 0) {                                  // avoid IntegerDivideByZero
               if ((pts_rtc_hour % pts_cfg_long_interval) == 0) {              // long intervals hour
                 if (pts_rtc_sec_hour > pts_cfg_long_uptimer_sec ) {           // timeout after long-uptime
@@ -627,9 +632,27 @@ void Power::readPowerStatus()
                 pts_shutdowntime_sec = SEC_PER_HOUR - pts_rtc_sec_hour;       // restart next hour
               }
             }
-          } else {
-            if (pts_dev_uptime_sec > pts_cfg_short_uptimer_sec ) {            // timeout after short-uptime   
-              pts_shutdowntime_sec = SEC_PER_HOUR - pts_dev_uptime_sec;       // restart next hour
+          } else {                                                            // --- no real time clock exists ---
+            // if (pts_dev_uptime_sec > pts_cfg_short_uptimer_sec ) {         // timeout after short-uptime   
+            //   pts_shutdowntime_sec = SEC_PER_HOUR - pts_dev_uptime_sec;    // restart next hour
+            // }
+            if (pts_cfg_long_interval > 0) {                                  // avoid IntegerDivideByZero
+              if ((pts_dev_hour % pts_cfg_long_interval) == 0) {              // long intervals hour
+                if (pts_dev_sec_hour > pts_cfg_long_uptimer_sec ) {           // timeout after long-uptime
+                  pts_shutdowntime_sec = SEC_PER_HOUR - pts_dev_sec_hour;     // restart next hours
+                  if (pts_cfg_savelong == true) {
+                    pts_saveprefs_flag = true;                                // enable long write ops
+                  }
+                }
+              } else {                                                        // short interval hours
+                if (pts_dev_sec_hour > pts_cfg_short_uptimer_sec ) {          // timeout after short-uptime   
+                  pts_shutdowntime_sec = SEC_PER_HOUR - pts_dev_sec_hour;     // restart next hour
+                }
+              }
+            } else {                                                          // short intervals
+              if (pts_dev_sec_hour > pts_cfg_short_uptimer_sec ) {            // timeout after short-uptime   
+                pts_shutdowntime_sec = SEC_PER_HOUR - pts_dev_sec_hour;       // restart next hour
+              }
             }
           }
           if (powerStatus2.getBatteryChargePercent() > pts_cfg_alwayson_pct){ // fully charged 
@@ -641,10 +664,10 @@ void Power::readPowerStatus()
 
         // DEBUG | ??:??:?? 161 [Power] Battery{PTS}: usbPower=1, isCharging=1, batMv=4650, batPct=100, cfgOBS=1891, cfgSDS=86405, cfgLS=86326, uptS=161, rtcHS=0, telS=0, sdtS=0
         // DEBUG | 00:09:06 241 [Power] Battery{PTS}: usbPower=1, isCharging=1, batMv=4606, batPct=100, cfgOBS=1891, cfgSDS=86405, cfgLS=86326, uptS=241, rtcHS=546, telS=0, sdtS=0
-        LOG_DEBUG("Battery{PTS}: usbPower=%d, isCharging=%d, batMv=%d, batPct=%d, cfgOBS=%d, cfgSDS=%d, cfgLS=%d, uptS=%d, rtcHS=%d, sdtS=%d\n", powerStatus2.getHasUSB(),
+        LOG_DEBUG("Battery{PTS}: usbPower=%d, isCharging=%d, batMv=%d, batPct=%d, cfgOBS=%d, cfgSDS=%d, cfgLS=%d, uptS=%d, rtcHS=%d, sdtS=%d, utc=%d\n", powerStatus2.getHasUSB(),
                   powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent(),
                   config.power.on_battery_shutdown_after_secs, config.power.sds_secs, config.power.ls_secs,
-                  pts_dev_uptime_sec, pts_rtc_sec_hour, pts_shutdowntime_sec) ;
+                  pts_dev_uptime_sec, pts_rtc_sec_hour, pts_shutdowntime_sec, pts_dev_rtcuptime) ;
 
         if (pts_shutdowntime_sec > 0) {
           LOG_DEBUG("Battery{PTS}: doDeepSleep(%d s)\n",pts_shutdowntime_sec);
