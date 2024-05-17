@@ -142,6 +142,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 
 ## Ideas
 
+* select battery type [#3910](https://github.com/meshtastic/firmware/issues/3910)
 * custom wifi power [#2267](https://github.com/meshtastic/firmware/issues/2267)
 * turn off wifi by voltage level [#2259](https://github.com/meshtastic/firmware/issues/2259)
 * customize boot screen [#3362](https://github.com/meshtastic/firmware/issues/3362)
