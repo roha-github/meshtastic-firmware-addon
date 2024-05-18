@@ -164,7 +164,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * adjust hops to own limit [#3833](https://github.com/meshtastic/firmware/discussions/3833)
 * remove old nodes from nodedb
 * determine and mark direct neighbors by retransmit own messages
-
+* binary (image) file transfer
 
 
 
