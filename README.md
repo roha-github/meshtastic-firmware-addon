@@ -162,7 +162,8 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * one button control e.g. for canned messages
 * Heltec Wireless Stick OLED-display [#3714](https://github.com/meshtastic/firmware/discussions/3714)
 * adjust hops to own limit [#3833](https://github.com/meshtastic/firmware/discussions/3833)
-
+* remove old nodes from nodedb
+* determine and mark direct neighbors by retransmit own messages
 
 
 
