@@ -167,6 +167,10 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * binary (image) file transfer
 
 
+### binary transfer
 
+* limit filesize = limit part id 6bit
+* 253 byte × 64 parts ~ 16 kb
+* max 8 parts / minute ~ 8 min / 16 kb
 
 
