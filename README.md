@@ -166,6 +166,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * determine and mark direct neighbors by retransmit own messages
 * binary (image) file transfer
 * act ESP32 as wifi access point [#1308](https://github.com/meshtastic/firmware/issues/1308)
+* bboard [#](https://discord.com/channels/867578229534359593/1202799870415605790)
 
 
 ### binary transfer
