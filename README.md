@@ -176,3 +176,8 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * 253 byte × 64 parts ~ 16 kb
 * max 8 parts / minute ~ 8 min / 16 kb
 
+### magic values
+
+* network
+  * [ntp server](https://github.com/meshtastic/firmware/blob/34aec70998382a66ea0d61bb9b5b585885aad32d/src/mesh/wifi/WiFiAPClient.cpp#L37) [32] = server#{string}
+  * [rsyslog server](https://github.com/meshtastic/firmware/blob/34aec70998382a66ea0d61bb9b5b585885aad32d/src/mesh/wifi/WiFiAPClient.cpp#L83) [32] = server#{string}
