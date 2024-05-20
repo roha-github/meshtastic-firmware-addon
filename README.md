@@ -184,4 +184,4 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * range test
   * [message interval](https://github.com/meshtastic/firmware/blob/34aec70998382a66ea0d61bb9b5b585885aad32d/src/modules/RangeTestModule.cpp#L59) = sec{number}
 * canned
-  * [messages](https://github.com/meshtastic/firmware/blob/34aec70998382a66ea0d61bb9b5b585885aad32d/src/mesh/generated/meshtastic/cannedmessages.pb.h#L16) [200]
+  * [messages](https://github.com/meshtastic/firmware/blob/34aec70998382a66ea0d61bb9b5b585885aad32d/src/mesh/generated/meshtastic/cannedmessages.pb.h#L16) [200] = {string}
