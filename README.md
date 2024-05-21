@@ -191,3 +191,9 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 The OTA update via Lora is only intended for nodes that are extremely difficult to access, where a wireless update via Bluetooth is not possible.
 
 An update via Lora is only possible if the old firmware release already contains the extension for the update via Lora.
+
+To update a Node-A, a second Node-B is required as a source. It is recommended to connect both nodes directly and without hops. In addition, the Short/Fast configuration with 10.94 kbps should be used for the update.
+
+The OTA update via Lora extends the update via BLE. The chunks are received via Lora instead of Bluetooth. The new firmware release is retrieved by Node-A from Node-B.
+
+The Admin Channel is used to initiate the retrieval of the new firmware. The address of Node-B is configured as a message for Node-A in the Canned module. Node-A then sends direct messages to Node-B to retrieve the chunks and Node-B responds with the parts of the new firmware binary.
