@@ -185,3 +185,9 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
   * [message interval](https://github.com/meshtastic/firmware/blob/34aec70998382a66ea0d61bb9b5b585885aad32d/src/modules/RangeTestModule.cpp#L59) = sec{number}
 * canned
   * [messages](https://github.com/meshtastic/firmware/blob/34aec70998382a66ea0d61bb9b5b585885aad32d/src/mesh/generated/meshtastic/cannedmessages.pb.h#L16) [200] = {string}
+
+### Remote OTA update over Lora (draft)
+
+The OTA update via Lora is only intended for nodes that are extremely difficult to access, where a wireless update via Bluetooth is not possible.
+
+An update via Lora is only possible if the old firmware release already contains the extension for the update via Lora.
