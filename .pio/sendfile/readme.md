@@ -27,6 +27,8 @@ The transmitter and receiver connect to the wifi hotspot.
 * connect Meshtastic app via IP-Address
 * or use Chrome browser and open http://meshtastic.local
 
+You may have to determine the IP address on the smartphone or via the logs with a serial USB terminal.
+
 ## Upload file
 
 The sender uploads the file to its node via webinterface.
