@@ -11,6 +11,11 @@ To transfer files between Meshtastic nodes, the web server is used for uploading
 
 The sender and receiver nodes install "sendfile.html" on their web server.
 
+* connect node serial to computer or smartphone via USB cable
+* configure your node and disable Bluetooth
+* configure your node and enable wifi for your hotspot and restart
+* open sendfile-install.html and upload sendfile.html to your node 
+
 ## Connect to wifi
 
 The transmitter and receiver connect to the wifi hotspot.
