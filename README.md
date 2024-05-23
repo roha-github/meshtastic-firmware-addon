@@ -198,7 +198,7 @@ The OTA update via Lora extends the update via BLE. The chunks are received via 
 
 The Admin Channel is used to initiate the retrieval of the new firmware. The address of Node-B is configured as a message for Node-A in the Canned module. Node-A then sends direct messages to Node-B to retrieve the chunks and Node-B responds with the parts of the new firmware binary.
 
-[Partitioning](https://github.com/meshtastic/firmware/blob/2f9dc813d3c64b738777bfdba1efc9a4697f7ac2/bin/genpartitions.py#L4)
+[Partitioning](https://github.com/meshtastic/firmware/blob/2f9dc813d3c64b738777bfdba1efc9a4697f7ac2/bin/genpartitions.py#L4) / [doc](https://docs.espressif.com/projects/arduino-esp32/en/latest/tutorials/partition_table.html)
 
 ```
 # This is a layout for 4MB of flash
