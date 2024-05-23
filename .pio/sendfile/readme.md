@@ -7,6 +7,8 @@ To transfer files between Meshtastic nodes, the web server is used for uploading
 * file is sent in small chunks and sender/receiver see progress
 * receiver downloads file from his node's web server
 
+Alternative implementation without changing firmware by uploading a special web client that splits files and sends them individually via message. The sender and receiver must keep their browsers open.
+
 ## Install webinterface
 
 The sender and receiver nodes install "sendfile.html" on their web server.
