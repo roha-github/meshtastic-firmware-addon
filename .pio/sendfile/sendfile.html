@@ -1,0 +1,39 @@
+<html>
+<head><title>sendfile</title></head>
+<body>
+<h1>Meshtastic SendFile</h1>
+<hr/>
+sender:
+<ul>
+ <li>compress file &lt;50 kilobytes</li>
+ <li>rename file to "sendfile.jpg" (or .txt or .zip)</li>
+ <li>upload file "sendfile.jpg" to node</li>
+ <li>direct message "sendfile:sendfile.jpg" to receiver</li>
+ <li>get message "ok" from receiver</li>
+ <li>(... send file sendfile.jpg to receiver ...)</li>
+ <li>get message "finished sendfile.jpg" from receiver</li>
+</ul>
+receiver:
+<ul>
+ <li>get message "sendfile:sendfile.jpg" from sender</li>
+ <li>direct message "ok" to sender</li>
+ <li>(... get file sendfile.jpg from sender ...)</li>
+ <li>get message "download http://meshtastic.local/sendfile.jpg" from sender</li>
+</ul>
+<hr/>
+/upload
+<form method="post" enctype="multipart/form-data" action="/upload" target="_blank">
+<input type="file" id="file" name="file" multiple /><button>Upload</button>
+</form>
+<form method="post" action="/restart" target="_blank">
+<button>Restart</button>
+</form>
+<form method="get" action="/json/fs/browse/static" target="_blank">
+<button>Files</button>
+</form>
+<a href="/sendfile.html" target="_blank">/sendfile.html</a><br>
+<a href="/sendfile.jpg" target="_blank">/sendfile.jpg</a><br>
+<a href="/sendfile.zip" target="_blank">/sendfile.zip</a><br>
+<a href="/sendfile.txt" target="_blank">/sendfile.txt</a><br>
+</body>
+</html>
