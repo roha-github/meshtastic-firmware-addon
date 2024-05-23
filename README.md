@@ -203,11 +203,11 @@ The Admin Channel is used to initiate the retrieval of the new firmware. The add
 ```
 # This is a layout for 4MB of flash
 # Name,   Type, SubType, Offset,  Size, Flags
-# nvs,      data, nvs,     0x9000,  0x6000,
-# otadata,  data, ota,     , 0x2000,
-# app0,     app,  ota_0,   , 0x1c0000,
-# app1,     app,  ota_1,   , 0x1c0000,
-# spiffs,   data, spiffs,  , 0x06f000,
+# nvs,      data, nvs,         0x9000 (36kb),  0x6000, (24kb)
+# otadata,  data, ota,     ,   0x2000 (8kb),
+# app0,     app,  ota_0,   , 0x1c0000 (1792kb),
+# app1,     app,  ota_1,   , 0x1c0000 (1792kb),
+# spiffs,   data, spiffs,  , 0x06f000 (444kb),
 ```
 
 1) update firmware
