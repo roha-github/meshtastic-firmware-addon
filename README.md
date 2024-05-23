@@ -200,6 +200,7 @@ The Admin Channel is used to initiate the retrieval of the new firmware. The add
 
 [Partitioning](https://github.com/meshtastic/firmware/blob/2f9dc813d3c64b738777bfdba1efc9a4697f7ac2/bin/genpartitions.py#L4)
 
+```
 # This is a layout for 4MB of flash
 # Name,   Type, SubType, Offset,  Size, Flags
 # nvs,      data, nvs,     0x9000,  0x6000,
@@ -207,6 +208,7 @@ The Admin Channel is used to initiate the retrieval of the new firmware. The add
 # app0,     app,  ota_0,   , 0x1c0000,
 # app1,     app,  ota_1,   , 0x1c0000,
 # spiffs,   data, spiffs,  , 0x06f000,
+```
 
 1) update firmware
 2) update files
