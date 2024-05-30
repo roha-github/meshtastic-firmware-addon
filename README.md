@@ -169,6 +169,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * bboard [#](https://discord.com/channels/867578229534359593/1202799870415605790)
 * lora update over the air
 * automatic reboot [#3982](https://github.com/meshtastic/firmware/issues/3982)
+* remote messaging via lora (like remote admin)
 
 ### binary transfer
 
