@@ -25,7 +25,7 @@ config.power.on_battery_shutdown_after_secs = 1783    # timer switch enabled    
 config.power.sds_secs                       = 86405   # 5min per hour           (cfg % 100 == 5)
 config.power.ls_secs                        = 86328   # 15min=5+2x5 every 8hour (cfg % 100 - % 10)
 
-additional settings
+additional settings:
 device.role = ROUTER_CLIENT
 device.serial_output = enabled
 device.rebroadcast = LOCAL_ONLY
@@ -39,6 +39,8 @@ lora.mqtt = ignore
 bluetooth = enabled (!!!)
 bluetooth.pairing = FIXED_PIN
 telemetry.device_metrics = 900
+
+Without BLE restart sometimes not work.
 ```
 
 ## Installation firmware
