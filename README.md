@@ -21,9 +21,24 @@ config.device.role                          = REPEATER | ROUTER | ROUTER_CLIENT
 ### Power Timer Switch
 
 ```
-config.power.on_battery_shutdown_after_secs = 1793    # timer switch enabled    (cfg % 10 == 1..3 enabled >= 90% on)
+config.power.on_battery_shutdown_after_secs = 1783    # timer switch enabled    (cfg % 10 == 1..3 enabled >= 80% on)
 config.power.sds_secs                       = 86405   # 5min per hour           (cfg % 100 == 5)
-config.power.ls_secs                        = 86326   # 15min=5+2x5 every 6hour (cfg % 100 - % 10)
+config.power.ls_secs                        = 86328   # 15min=5+2x5 every 8hour (cfg % 100 - % 10)
+
+additional settings
+device.role = ROUTER_CLIENT
+device.serial_output = enabled
+device.rebroadcast = LOCAL_ONLY
+device.nodeinfo = 10800
+position.smart_position = disabled
+position.gps_mode = NOT_PRESENT
+display.screen_timeout = 1
+lora.region = EU_868
+lora.hop_limit = 7
+lora.mqtt = ignore
+bluetooth = enabled (!!!)
+bluetooth.pairing = FIXED_PIN
+telemetry.device_metrics = 900
 ```
 
 ## Installation firmware
