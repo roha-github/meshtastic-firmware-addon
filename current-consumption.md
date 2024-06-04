@@ -4,10 +4,13 @@
 
 | ID | Firmware | Power | Role | Serial | ReBro | GPS | PSave | SBat | ADC | WBlu | DeS | LiS | MiW | Dis | TX | MQTT | BLE | boot | time | down |
 |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
-| 1 | 2.3.4.xxxd | bat | Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 99,5mA | 1:26 | 2,1mA |
-| 1 | 2.3.4.xxxd | usb | Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
-| 2 | 2.3.4.xxxd | usb | Client | log | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
-| 3 | 2.3.10.beta | usb | Client | log | all | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
+| 1 | 2.3.4.xxxd | bat | client | DIS | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 99,5mA | 1:26 | 2,1mA |
+| 1 | 2.3.4.xxxd | usb | client | DIS | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
+| 2 | 2.3.4.xxxd | usb | client | log | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
+| 3 | 2.3.10.beta | usb | client | log | all | not | dis | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | fix | 105mA | | |
+| 4 | 2.3.10.beta | usb | client | DIS | all | not | dis | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | fix | 107mA | | |
+| 5 | 2.3.10.beta | usb | client | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | fix | 104mA |  | |
+| 6 | 2.3.10.beta | usb | client | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 41mA |  | |
 
 * PSave: power saving mode
 * SBat: shutdown on battery
@@ -686,4 +689,71 @@ DEBUG | 13:33:30 67 [Router] Ignoring incoming msg, because we've already seen i
 DEBUG | 13:33:30 67 [Router] cancelSending id=0x2f67f18e, removed=1
 DEBUG | 13:33:30 67 [Router] Incoming message was filtered 0xe0d392b0
 DEBUG | 13:33:44 81 [Power] Battery: usbPower=0, isCharging=0, batMv=4031, batPct=86
+```
+
+Log 4 
+```
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0xc (RTC_SW_CPU_RST),boot:0x8 (SPI_FAST_FLASH_BOOT)
+Saved PC:0x40382862
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce3808,len:0x44c
+load:0x403c9700,len:0xbe4
+load:0x403cc700,len:0x2a38
+entry 0x403c98d4
+E (360) esp_core_dump_flash: No core dump partition found!
+E (360) esp_core_dump_flash: No core dump partition found▒▒@INFO  | ??:??:?? 0
+
+//\ E S H T /\ S T / C
+
+INFO  | ??:??:?? 0 Booted, wake cause 0 (boot count 1), reset_reason=reset
+DEBUG | ??:??:?? 0 Filesystem files (495616/1048576 Bytes):
+DEBUG | ??:??:?? 0  /prefs/channels.proto (100 Bytes)
+DEBUG | ??:??:?? 0  /prefs/config.proto (99 Bytes)
+DEBUG | ??:??:?? 0  /prefs/db.proto (540 Bytes)
+DEBUG | ??:??:?? 0  /prefs/module.proto (107 Bytes)
+DEBUG | ??:??:?? 0  /static/.gitkeep (0 Bytes)
+DEBUG | ??:??:?? 0  /static/Logo_Black.svg.gz (602 Bytes)
+DEBUG | ??:??:?? 0  /static/Logo_White.svg.gz (610 Bytes)
+DEBUG | ??:??:?? 0  /static/apple-touch-icon.png.gz (3164 Bytes)
+DEBUG | ??:??:?? 0  /static/favicon.ico.gz (2270 Bytes)
+DEBUG | ??:??:?? 0  /static/icon.svg.gz (852 Bytes)
+DEBUG | ??:??:?? 0  /static/index-BMhLjTmL.css.gz (16270 Bytes)
+DEBUG | ??:??:?? 0  /static/index-Bt2MYVVB.js.gz (203021 Bytes)
+DEBUG | ??:??:?? 0  /static/index-CGqDWSD_.js.gz (348 Bytes)
+DEBUG | ??:??:?? 0  /static/index.html.gz (548 Bytes)
+DEBUG | ??:??:?? 0  /static/maplibre-gl-BXZZhNda.js.gz (210451 Bytes)
+DEBUG | ??:??:?? 0  /static/robots.txt.gz (42 Bytes)
+DEBUG | ??:??:?? 0  /static/site.webmanifest.gz (197 Bytes)
+[   690][I][esp32-hal-i2c.c:75] i2cInit(): Initialising I2C Master: sda=41 scl=42 freq=100000
+DEBUG | ??:??:?? 0 Using analog input 1 for battery level
+INFO  | ??:??:?? 0 ADCmod: ADC Characterization based on Two Point values and fitting curve coefficients stored in eFuse
+INFO  | ??:??:?? 0 Scanning for i2c devices...
+[   716][W][Wire.cpp:301] begin(): Bus already started in Master Mode.
+DEBUG | ??:??:?? 0 Scanning for i2c devices on port 1
+INFO  | ??:??:?? 0 No I2C devices found
+DEBUG | ??:??:?? 0 acc_info = 0
+INFO  | ??:??:?? 0 Meshtastic hwvendor=44, swver=2.3.10.d19607b
+DEBUG | ??:??:?? 0 Setting random seed 3945227273
+DEBUG | ??:??:?? 0 Total heap: 293856
+DEBUG | ??:??:?? 0 Free heap: 258808
+DEBUG | ??:??:?? 0 Total PSRAM: 0
+DEBUG | ??:??:?? 0 Free PSRAM: 0
+DEBUG | ??:??:?? 0 NVS: UsedEntries 70, FreeEntries 560, AllEntries 630, NameSpaces 3
+DEBUG | ??:??:?? 0 Setup Preferences in Flash Storage
+DEBUG | ??:??:?? 0 Number of Device Reboots: 7
+DEBUG | ??:??:?? 0 OTA firmware version 0.2.1.ceca52c
+INFO  | ??:??:?? 0 Initializing NodeDB
+INFO  | ??:??:?? 0 Loading /prefs/db.proto
+INFO  | ??:??:?? 0 Loaded /prefs/db.proto successfully
+INFO  | ??:??:?? 0 Loaded saved devicestate version 22, with nodecount: 4
+INFO  | ??:??:?? 0 Loading /prefs/config.proto
+[   881][E][vfs_api.cpp:105] open(): /littlefs/oem/oem.proto does not exist, no permits for creation
+[  1026][D][esp32-hal-cpu.c:244] setCpuFrequencyMhz(): PLL: 480 / 6 = 80 Mhz, APB: 80000000 Hz
+
+... 120 Seconds ... 105 mA
+
+
 ```
