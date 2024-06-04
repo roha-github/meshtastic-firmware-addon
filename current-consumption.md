@@ -11,6 +11,7 @@
 | 4 | 2.3.10.beta | usb | client | DIS | all | not | dis | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | fix | 107mA | | |
 | 5 | 2.3.10.beta | usb | client | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | fix | 104mA |  | |
 | 6 | 2.3.10.beta | usb | client | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 41mA |  | |
+| 7 | 2.3.10.beta | usb | ROUTER | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 17mA | empf | 41mA |
 
 * PSave: power saving mode
 * SBat: shutdown on battery
