@@ -7,6 +7,7 @@
 | 1 | 2.3.4.xxxd | bat | Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 99,5mA | 1:26 | 2,1mA |
 | 1 | 2.3.4.xxxd | usb | Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
 | 2 | 2.3.4.xxxd | usb | Client | log | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
+| 3 | 2.3.10.beta | usb | Client | log | all | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
 
 * PSave: power saving mode
 * SBat: shutdown on battery
@@ -371,4 +372,318 @@ INFO  | 12:58:17 80 [PowerFSM] Saving /prefs/channels.proto
 E (80947) RTCIO: rtc_gpio_isolate(171): RTCIO number error
 E (80947) RTCIO: rtc_gpio_isolate(171): RTCIO number error
 E (80948) RTCIO: rtc_gpio_isolate(171): RTCIO number error
+```
+
+Log 3 
+```
+ESP-ROM:esp32s3-20210327
+Build:Mar 27 2021
+rst:0x1 (POWERON),boot:0x8 (SPI_FAST_FLASH_BOOT)
+SPIWP:0xee
+mode:DIO, clock div:1
+load:0x3fce3808,len:0x44c
+load:0x403c9700,len:0xbe4
+load:0x403cc700,len:0x2a38
+entry 0x403c98d4
+E (353) esp_core_dump_flash: No core dump partition found!
+E (353) esp_core_dump_flash: No core dump partition found▒▒@INFO  | ??:??:?? 0
+
+//\ E S H T /\ S T / C
+
+INFO  | ??:??:?? 0 Booted, wake cause 0 (boot count 1), reset_reason=reset
+DEBUG | ??:??:?? 0 Filesystem files (491520/1048576 Bytes):
+DEBUG | ??:??:?? 0  /prefs/channels.proto (100 Bytes)
+DEBUG | ??:??:?? 0  /prefs/config.proto (101 Bytes)
+DEBUG | ??:??:?? 0  /prefs/db.proto (389 Bytes)
+DEBUG | ??:??:?? 0  /prefs/module.proto (107 Bytes)
+DEBUG | ??:??:?? 0  /static/.gitkeep (0 Bytes)
+DEBUG | ??:??:?? 0  /static/Logo_Black.svg.gz (602 Bytes)
+DEBUG | ??:??:?? 0  /static/Logo_White.svg.gz (610 Bytes)
+DEBUG | ??:??:?? 0  /static/apple-touch-icon.png.gz (3164 Bytes)
+DEBUG | ??:??:?? 0  /static/favicon.ico.gz (2270 Bytes)
+DEBUG | ??:??:?? 0  /static/icon.svg.gz (852 Bytes)
+DEBUG | ??:??:?? 0  /static/index-BMhLjTmL.css.gz (16270 Bytes)
+DEBUG | ??:??:?? 0  /static/index-Bt2MYVVB.js.gz (203021 Bytes)
+DEBUG | ??:??:?? 0  /static/index-CGqDWSD_.js.gz (348 Bytes)
+DEBUG | ??:??:?? 0  /static/index.html.gz (548 Bytes)
+DEBUG | ??:??:?? 0  /static/maplibre-gl-BXZZhNda.js.gz (210451 Bytes)
+DEBUG | ??:??:?? 0  /static/robots.txt.gz (42 Bytes)
+DEBUG | ??:??:?? 0  /static/site.webmanifest.gz (197 Bytes)
+[   705][I][esp32-hal-i2c.c:75] i2cInit(): Initialising I2C Master: sda=41 scl=42 freq=100000
+DEBUG | ??:??:?? 0 Using analog input 1 for battery level
+INFO  | ??:??:?? 0 ADCmod: ADC Characterization based on Two Point values and fitting curve coefficients stored in eFuse
+INFO  | ??:??:?? 0 Scanning for i2c devices...
+[   731][W][Wire.cpp:301] begin(): Bus already started in Master Mode.
+DEBUG | ??:??:?? 0 Scanning for i2c devices on port 1
+INFO  | ??:??:?? 0 No I2C devices found
+DEBUG | ??:??:?? 0 acc_info = 0
+INFO  | ??:??:?? 0 Meshtastic hwvendor=44, swver=2.3.10.d19607b
+DEBUG | ??:??:?? 0 Setting random seed 420261288
+DEBUG | ??:??:?? 0 Total heap: 293856
+DEBUG | ??:??:?? 0 Free heap: 258808
+DEBUG | ??:??:?? 0 Total PSRAM: 0
+DEBUG | ??:??:?? 0 Free PSRAM: 0
+DEBUG | ??:??:?? 0 NVS: UsedEntries 70, FreeEntries 560, AllEntries 630, NameSpaces 3
+DEBUG | ??:??:?? 0 Setup Preferences in Flash Storage
+DEBUG | ??:??:?? 0 Number of Device Reboots: 6
+DEBUG | ??:??:?? 0 OTA firmware version 0.2.1.ceca52c
+INFO  | ??:??:?? 0 Initializing NodeDB
+INFO  | ??:??:?? 0 Loading /prefs/db.proto
+INFO  | ??:??:?? 0 Loaded /prefs/db.proto successfully
+INFO  | ??:??:?? 0 Loaded saved devicestate version 22, with nodecount: 2
+INFO  | ??:??:?? 0 Loading /prefs/config.proto
+INFO  | ??:??:?? 0 Loaded /prefs/config.proto successfully
+INFO  | ??:??:?? 0 Loaded saved config version 22
+INFO  | ??:??:?? 0 Loading /prefs/module.proto
+INFO  | ??:??:?? 0 Loaded /prefs/module.proto successfully
+INFO  | ??:??:?? 0 Loaded saved moduleConfig version 22
+INFO  | ??:??:?? 0 Loading /prefs/channels.proto
+INFO  | ??:??:?? 0 Loaded /prefs/channels.proto successfully
+INFO  | ??:??:?? 0 Loaded saved channelFile version 22
+[   947][E][vfs_api.cpp:105] open(): /littlefs/oem/oem.proto does not exist, no permits for creation
+INFO  | ??:??:?? 0 File /oem/oem.proto not found
+DEBUG | ??:??:?? 0 cleanupMeshDB purged 0 entries
+DEBUG | ??:??:?? 0 Using nodenum 0x336654bc
+DEBUG | ??:??:?? 0 Number of Device Reboots: 6
+DEBUG | ??:??:?? 0 Expanding short PSK #1
+INFO  | ??:??:?? 0 Wanted region 3, using EU_868
+INFO  | ??:??:?? 0 Saving /prefs/db.proto
+DEBUG | ??:??:?? 1 Using GPIO00 for button
+DEBUG | ??:??:?? 1 SPI.begin(SCK=9, MISO=11, MOSI=10, NSS=8)
+DEBUG | ??:??:?? 1 Set Timezone to GMT0
+DEBUG | ??:??:?? 1 Read RTC time as 0
+DEBUG | ??:??:?? 1 NeighborInfoModule is disabled
+INFO  | ??:??:?? 1 External Notification Module Disabled
+DEBUG | ??:??:?? 1 SX126xInterface(cs=8, irq=14, rst=12, busy=13)
+DEBUG | ??:??:?? 1 SX126X_DIO3_TCXO_VOLTAGE defined, using DIO3 as TCXO reference voltage at 1.800000 V
+INFO  | ??:??:?? 1 Starting meshradio init...
+DEBUG | ??:??:?? 1 (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=0, time 231 ms
+DEBUG | ??:??:?? 1 (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=253, time 2115 ms
+INFO  | ??:??:?? 1 Radio freq=869.525, config.lora.frequency_offset=0.000
+INFO  | ??:??:?? 1 Set radio: region=EU_868, name=LongFast, config=0, ch=0, power=27
+INFO  | ??:??:?? 1 Radio myRegion->freqStart -> myRegion->freqEnd: 869.400024 -> 869.650024 (0.250000 mhz)
+INFO  | ??:??:?? 1 Radio myRegion->numChannels: 1 x 250.000kHz
+INFO  | ??:??:?? 1 Radio channel_num: 1
+INFO  | ??:??:?? 1 Radio frequency: 869.525024
+INFO  | ??:??:?? 1 Slot time: 42 msec
+INFO  | ??:??:?? 1 Set radio: final power level=22
+INFO  | ??:??:?? 1 SX126x init result 0
+INFO  | ??:??:?? 1 Frequency set to 869.525024
+INFO  | ??:??:?? 1 Bandwidth set to 250.000000
+INFO  | ??:??:?? 1 Power output set to 22
+DEBUG | ??:??:?? 1 Current limit set to 140.000000
+DEBUG | ??:??:?? 1 Current limit set result 0
+DEBUG | ??:??:?? 1 Setting DIO2 as RF switch
+DEBUG | ??:??:?? 1 SX126X_RXEN not defined, defaulting to RADIOLIB_NC
+DEBUG | ??:??:?? 1 SX126X_TXEN not defined, defaulting to RADIOLIB_NC
+DEBUG | ??:??:?? 1 Using MCU pin -1 as RXEN and pin -1 as TXEN to control RF switching
+INFO  | ??:??:?? 1 Set RX gain to boosted mode; result: 0
+INFO  | ??:??:?? 1 SX1262 Radio init succeeded, using SX1262 radio
+INFO  | ??:??:?? 1 Not using WIFI
+DEBUG | ??:??:?? 1 (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=237, time 2000 ms
+DEBUG | ??:??:?? 1 LoRA bitrate = 118.500000 bytes / sec
+INFO  | ??:??:?? 1 PowerFSM init, USB power=1
+DEBUG | ??:??:?? 1 Enter state: BOOT
+[  1316][D][esp32-hal-cpu.c:244] setCpuFrequencyMhz(): PLL: 480 / 6 = 80 Mhz, APB: 80000000 Hz
+DEBUG | ??:??:?? 1 [Power] Battery: usbPower=0, isCharging=0, batMv=3100, batPct=0
+INFO  | ??:??:?? 1 [RangeTestModule] Range Test Module - Disabled
+INFO  | ??:??:?? 4 [PowerFSM] Loss of power in Powered
+INFO  | ??:??:?? 4 [PowerFSM] Loss of power in Powered
+INFO  | ??:??:?? 4 [PowerFSM] Initialise the NimBLE bluetooth module
+DEBUG | ??:??:?? 4 [PowerFSM] Enter state: ON
+DEBUG | ??:??:?? 17 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=25, time 419 ms
+DEBUG | ??:??:?? 17 [RadioIf] Lora RX (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=3 Ch=0x8 encrypted rxSNR=5.75 rxRSSI=-28 hopStart=3)
+DEBUG | ??:??:?? 17 [RadioIf] AirTime - Packet received : 419ms
+DEBUG | ??:??:?? 17 [Router] Add packet record (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=3 Ch=0x8 encrypted rxSNR=5.75 rxRSSI=-28 hopStart=3)
+DEBUG | ??:??:?? 17 [Router] Using channel 0 (hash 0x8)
+DEBUG | ??:??:?? 17 [Router] Expanding short PSK #1
+DEBUG | ??:??:?? 17 [Router] Using AES128 key!
+DEBUG | ??:??:?? 17 [Router] ESP32 crypt fr=c999a000, num=b0956cac, numBytes=9!
+DEBUG | ??:??:?? 17 [Router] decoded message (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=3 Ch=0x0 Portnum=3 rxSNR=5.75 rxRSSI=-28 hopStart=3)
+DEBUG | ??:??:?? 17 [Router] handleReceived(REMOTE) (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=3 Ch=0x0 Portnum=3 rxSNR=5.75 rxRSSI=-28 hopStart=3)
+DEBUG | ??:??:?? 17 [Router] Module 'position' wantsPacket=1
+INFO  | ??:??:?? 17 [Router] Received position from=0xc999a000, id=0xb0956cac, portnum=3, payloadlen=5
+DEBUG | ??:??:?? 17 [Router] POSITION node=c999a000 l=5 latI=0 lonI=0 msl=0 hae=0 geo=0 pdop=0 hdop=0 vdop=0 siv=0 fxq=0 fxt=0 pts=0 time=1717507961
+DEBUG | ??:??:?? 17 [Router] Upgrading time to quality Net
+DEBUG | 13:32:41 17 [Router] Read RTC time as 1717507961
+DEBUG | 13:32:41 17 [Router] updatePosition SPECIAL time setting time=1717507961
+DEBUG | 13:32:41 17 [Router] Node status update: 0 online, 3 total
+DEBUG | 13:32:41 17 [Router] Module 'position' considered
+DEBUG | 13:32:41 17 [Router] Module 'routing' wantsPacket=1
+INFO  | 13:32:41 17 [Router] Received routing from=0xc999a000, id=0xb0956cac, portnum=3, payloadlen=5
+DEBUG | 13:32:41 17 [Router] Routing sniffing (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=3 Ch=0x0 Portnum=3 rxSNR=5.75 rxRSSI=-28 hopStart=3)
+INFO  | 13:32:41 17 [Router] Rebroadcasting received floodmsg to neighbors
+DEBUG | 13:32:41 17 [Router] Expanding short PSK #1
+DEBUG | 13:32:41 17 [Router] Using AES128 key!
+DEBUG | 13:32:41 17 [Router] ESP32 crypt fr=c999a000, num=b0956cac, numBytes=9!
+DEBUG | 13:32:41 17 [Router] enqueuing for send (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=2 Ch=0x8 encrypted rxSNR=5.75 rxRSSI=-28 hopStart=3)
+DEBUG | 13:32:41 17 [Router] txGood=0,rxGood=1,rxBad=0
+DEBUG | 13:32:41 17 [Router] rx_snr found. hop_limit:2 rx_snr:5.750000
+DEBUG | 13:32:41 17 [Router] rx_snr found in packet. Setting tx delay:2268
+DEBUG | 13:32:41 17 [Router] Delivering rx packet (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=3 Ch=0x0 Portnum=3 rxSNR=5.75 rxRSSI=-28 hopStart=3)
+DEBUG | 13:32:41 17 [Router] Update DB node 0xc999a000, rx_time=0
+INFO  | 13:32:41 17 [Router] Heard a node on channel 0 we don't know, sending NodeInfo and asking for a response.
+INFO  | 13:32:41 18 [Router] sending owner !336654bc/PV_PowerBank/PVPB
+DEBUG | 13:32:41 18 [Router] Initial packet id 840730600, numPacketId 4294967295
+DEBUG | 13:32:41 18 [Router] Update DB node 0x336654bc, rx_time=1717507961
+DEBUG | 13:32:41 18 [Router] localSend to channel 0
+DEBUG | 13:32:41 18 [Router] Add packet record (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=7 Ch=0x0 Portnum=4 WANTRESP rxtime=1717507961 priority=10)
+DEBUG | 13:32:41 18 [Router] Expanding short PSK #1
+DEBUG | 13:32:41 18 [Router] Using AES128 key!
+DEBUG | 13:32:41 18 [Router] ESP32 crypt fr=336654bc, num=321c87ea, numBytes=47!
+DEBUG | 13:32:41 18 [Router] enqueuing for send (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=7 Ch=0x8 encrypted rxtime=1717507961 hopStart=7 priority=10)
+DEBUG | 13:32:41 18 [Router] txGood=0,rxGood=1,rxBad=0
+DEBUG | 13:32:41 18 [Router] rx_snr found. hop_limit:2 rx_snr:5.750000
+DEBUG | 13:32:41 18 [Router] rx_snr found in packet. Setting tx delay:2982
+DEBUG | 13:32:41 18 [Router] Forwarding to phone (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=3 Ch=0x0 Portnum=3 rxSNR=5.75 rxRSSI=-28 hopStart=3)
+DEBUG | 13:32:41 18 [Router] Module 'routing' considered
+DEBUG | 13:32:41 18 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=25, time 419 ms
+DEBUG | 13:32:41 18 [RadioIf] Lora RX (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=2 Ch=0x8 encrypted rxSNR=3.75 rxRSSI=-91)
+DEBUG | 13:32:41 18 [RadioIf] AirTime - Packet received : 419ms
+DEBUG | 13:32:41 18 [Router] Found existing packet record for fr=0xc999a000,to=0xffffffff,id=0xb0956cac
+DEBUG | 13:32:41 18 [Router] Found existing packet record for fr=0xc999a000,to=0xffffffff,id=0xb0956cac
+DEBUG | 13:32:41 18 [Router] Add packet record (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=2 Ch=0x8 encrypted rxSNR=3.75 rxRSSI=-91)
+DEBUG | 13:32:41 18 [Router] Ignoring incoming msg, because we've already seen it (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=2 Ch=0x8 encrypted rxSNR=3.75 rxRSSI=-91)
+DEBUG | 13:32:41 18 [Router] cancelSending id=0xb0956cac, removed=1
+DEBUG | 13:32:41 18 [Router] Incoming message was filtered 0xc999a000
+WARN  | 13:32:41 18 [RadioIf] Can not send yet, busyRx
+WARN  | 13:32:41 18 [RadioIf] Can not send yet, busyRx
+WARN  | 13:32:42 18 [RadioIf] Can not send yet, busyRx
+WARN  | 13:32:42 18 [RadioIf] Can not send yet, busyRx
+WARN  | 13:32:42 18 [RadioIf] Can not send yet, busyRx
+WARN  | 13:32:42 18 [RadioIf] Can not send yet, busyRx
+DEBUG | 13:32:42 19 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=25, time 419 ms
+DEBUG | 13:32:42 19 [RadioIf] Lora RX (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=2 Ch=0x8 encrypted rxSNR=6 rxRSSI=-21 hopStart=3)
+DEBUG | 13:32:42 19 [RadioIf] AirTime - Packet received : 419ms
+DEBUG | 13:32:42 19 [Router] Found existing packet record for fr=0xc999a000,to=0xffffffff,id=0xb0956cac
+DEBUG | 13:32:42 19 [Router] Found existing packet record for fr=0xc999a000,to=0xffffffff,id=0xb0956cac
+DEBUG | 13:32:42 19 [Router] Add packet record (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=2 Ch=0x8 encrypted rxSNR=6 rxRSSI=-21 hopStart=3)
+DEBUG | 13:32:42 19 [Router] Ignoring incoming msg, because we've already seen it (id=0xb0956cac fr=0x00 to=0xff, WantAck=0, HopLim=2 Ch=0x8 encrypted rxSNR=6 rxRSSI=-21 hopStart=3)
+DEBUG | 13:32:42 19 [Router] cancelSending id=0xb0956cac, removed=0
+DEBUG | 13:32:42 19 [Router] Incoming message was filtered 0xc999a000
+DEBUG | 13:32:42 19 [RadioIf] Starting low level send (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=7 Ch=0x8 encrypted rxtime=1717507961 hopStart=7 priority=10)
+DEBUG | 13:32:42 19 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=63, time 706 ms
+DEBUG | 13:32:42 19 [RadioIf] AirTime - Packet transmitted : 706ms
+DEBUG | 13:32:43 19 [RadioIf] Completed sending (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=7 Ch=0x8 encrypted rxtime=1717507961 hopStart=7 priority=10)
+DEBUG | 13:32:43 20 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=63, time 706 ms
+DEBUG | 13:32:43 20 [RadioIf] Lora RX (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=5.75 rxRSSI=-21 hopStart=7)
+DEBUG | 13:32:43 20 [RadioIf] AirTime - Packet received : 706ms
+DEBUG | 13:32:43 20 [Router] Rx someone rebroadcasting for us (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=5.75 rxRSSI=-21 hopStart=7)
+DEBUG | 13:32:43 20 [Router] didn't find pending packet
+DEBUG | 13:32:43 20 [Router] Found existing packet record for fr=0x336654bc,to=0xc999a000,id=0x321c87ea
+DEBUG | 13:32:43 20 [Router] Found existing packet record for fr=0x336654bc,to=0xc999a000,id=0x321c87ea
+DEBUG | 13:32:43 20 [Router] Add packet record (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=5.75 rxRSSI=-21 hopStart=7)
+DEBUG | 13:32:43 20 [Router] Ignoring incoming msg, because we've already seen it (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=5.75 rxRSSI=-21 hopStart=7)
+DEBUG | 13:32:44 20 [Router] cancelSending id=0x321c87ea, removed=0
+DEBUG | 13:32:44 20 [Router] Incoming message was filtered 0x336654bc
+DEBUG | 13:32:44 21 [Power] Battery: usbPower=0, isCharging=0, batMv=4076, batPct=91
+DEBUG | 13:32:44 21 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=63, time 706 ms
+DEBUG | 13:32:44 21 [RadioIf] Lora RX (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=4 rxRSSI=-90)
+DEBUG | 13:32:44 21 [RadioIf] AirTime - Packet received : 706ms
+DEBUG | 13:32:44 21 [Router] Rx someone rebroadcasting for us (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=4 rxRSSI=-90)
+DEBUG | 13:32:44 21 [Router] didn't find pending packet
+DEBUG | 13:32:44 21 [Router] Found existing packet record for fr=0x336654bc,to=0xc999a000,id=0x321c87ea
+DEBUG | 13:32:44 21 [Router] Found existing packet record for fr=0x336654bc,to=0xc999a000,id=0x321c87ea
+DEBUG | 13:32:44 21 [Router] Add packet record (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=4 rxRSSI=-90)
+DEBUG | 13:32:44 21 [Router] Ignoring incoming msg, because we've already seen it (id=0x321c87ea fr=0xbc to=0x00, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=4 rxRSSI=-90)
+DEBUG | 13:32:44 21 [Router] cancelSending id=0x321c87ea, removed=0
+DEBUG | 13:32:44 21 [Router] Incoming message was filtered 0x336654bc
+INFO  | 13:32:54 31 [NodeInfoModule] Sending our nodeinfo to mesh (wantReplies=1)
+DEBUG | 13:32:54 31 [NodeInfoModule] cancelSending id=0x321c87ea, removed=0
+DEBUG | 13:32:54 31 [NodeInfoModule] Sending NodeInfo will be ignored since we just sent it.
+DEBUG | 13:33:04 41 [Power] Battery: usbPower=0, isCharging=0, batMv=4076, batPct=91
+INFO  | 13:33:09 46 [DeviceTelemetryModule] (Sending): air_util_tx=0.019611, channel_utilization=5.625000, battery_level=91, voltage=4.076000, uptime=46
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] updateTelemetry LOCAL
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] Node status update: 1 online, 3 total
+INFO  | 13:33:09 46 [DeviceTelemetryModule] Sending packet to mesh
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] Update DB node 0x336654bc, rx_time=1717507989
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] handleReceived(LOCAL) (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=7 Ch=0x0 Portnum=67 rxtime=1717507989 priority=10)
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] No modules interested in portnum=67, src=LOCAL
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] localSend to channel 0
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] Add packet record (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=7 Ch=0x0 Portnum=67 rxtime=1717507989 priority=10)
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] Expanding short PSK #1
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] Using AES128 key!
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] ESP32 crypt fr=336654bc, num=321c87eb, numBytes=30!
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] enqueuing for send (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=7 Ch=0x8 encrypted rxtime=1717507989 hopStart=7 priority=10)
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] txGood=1,rxGood=5,rxBad=0
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] Using channel 0 (hash 0x8)
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] Expanding short PSK #1
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] Using AES128 key!
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] ESP32 crypt fr=336654bc, num=321c87eb, numBytes=30!
+DEBUG | 13:33:09 46 [DeviceTelemetryModule] decoded message (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=7 Ch=0x0 Portnum=67 rxtime=1717507989 hopStart=7 priority=10)
+DEBUG | 13:33:09 46 [RadioIf] Starting low level send (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=7 Ch=0x8 encrypted rxtime=1717507989 hopStart=7 priority=10)
+DEBUG | 13:33:09 46 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=46, time 575 ms
+DEBUG | 13:33:09 46 [RadioIf] AirTime - Packet transmitted : 575ms
+DEBUG | 13:33:10 46 [RadioIf] Completed sending (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=7 Ch=0x8 encrypted rxtime=1717507989 hopStart=7 priority=10)
+DEBUG | 13:33:11 48 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=46, time 575 ms
+DEBUG | 13:33:11 48 [RadioIf] Lora RX (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=7.5 rxRSSI=-20 hopStart=7)
+DEBUG | 13:33:11 48 [RadioIf] AirTime - Packet received : 575ms
+DEBUG | 13:33:11 48 [Router] Rx someone rebroadcasting for us (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=7.5 rxRSSI=-20 hopStart=7)
+DEBUG | 13:33:11 48 [Router] didn't find pending packet
+DEBUG | 13:33:11 48 [Router] Found existing packet record for fr=0x336654bc,to=0xffffffff,id=0x321c87eb
+DEBUG | 13:33:11 48 [Router] Found existing packet record for fr=0x336654bc,to=0xffffffff,id=0x321c87eb
+DEBUG | 13:33:11 48 [Router] Add packet record (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=7.5 rxRSSI=-20 hopStart=7)
+DEBUG | 13:33:11 48 [Router] Ignoring incoming msg, because we've already seen it (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=7.5 rxRSSI=-20 hopStart=7)
+DEBUG | 13:33:11 48 [Router] cancelSending id=0x321c87eb, removed=0
+DEBUG | 13:33:11 48 [Router] Incoming message was filtered 0x336654bc
+DEBUG | 13:33:12 48 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=46, time 575 ms
+DEBUG | 13:33:12 48 [RadioIf] Lora RX (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=5.5 rxRSSI=-89)
+DEBUG | 13:33:12 48 [RadioIf] AirTime - Packet received : 575ms
+DEBUG | 13:33:12 48 [Router] Rx someone rebroadcasting for us (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=5.5 rxRSSI=-89)
+DEBUG | 13:33:12 48 [Router] didn't find pending packet
+DEBUG | 13:33:12 48 [Router] Found existing packet record for fr=0x336654bc,to=0xffffffff,id=0x321c87eb
+DEBUG | 13:33:12 48 [Router] Found existing packet record for fr=0x336654bc,to=0xffffffff,id=0x321c87eb
+DEBUG | 13:33:12 48 [Router] Add packet record (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=5.5 rxRSSI=-89)
+DEBUG | 13:33:12 48 [Router] Ignoring incoming msg, because we've already seen it (id=0x321c87eb fr=0xbc to=0xff, WantAck=0, HopLim=6 Ch=0x8 encrypted rxSNR=5.5 rxRSSI=-89)
+DEBUG | 13:33:12 48 [Router] cancelSending id=0x321c87eb, removed=0
+DEBUG | 13:33:12 48 [Router] Incoming message was filtered 0x336654bc
+DEBUG | 13:33:24 61 [Power] Battery: usbPower=0, isCharging=0, batMv=4049, batPct=89
+
+... 120 Seconds ... 104 mA
+
+DEBUG | 13:33:29 66 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=38, time 518 ms
+DEBUG | 13:33:29 66 [RadioIf] Lora RX (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=5 Ch=0x8 encrypted rxSNR=4 rxRSSI=-90)
+DEBUG | 13:33:29 66 [RadioIf] AirTime - Packet received : 518ms
+DEBUG | 13:33:29 66 [Router] Add packet record (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=5 Ch=0x8 encrypted rxSNR=4 rxRSSI=-90)
+DEBUG | 13:33:29 66 [Router] Using channel 0 (hash 0x8)
+DEBUG | 13:33:29 66 [Router] Expanding short PSK #1
+DEBUG | 13:33:29 66 [Router] Using AES128 key!
+DEBUG | 13:33:29 66 [Router] ESP32 crypt fr=e0d392b0, num=2f67f18e, numBytes=22!
+DEBUG | 13:33:29 66 [Router] decoded message (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=5 Ch=0x0 Portnum=3 rxtime=1717508009 rxSNR=4 rxRSSI=-90)
+DEBUG | 13:33:29 66 [Router] handleReceived(REMOTE) (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=5 Ch=0x0 Portnum=3 rxtime=1717508009 rxSNR=4 rxRSSI=-90)
+DEBUG | 13:33:29 66 [Router] Module 'position' wantsPacket=1
+INFO  | 13:33:29 66 [Router] Received position from=0xe0d392b0, id=0x2f67f18e, portnum=3, payloadlen=18
+DEBUG | 13:33:29 66 [Router] POSITION node=e0d392b0 l=18 latI=480780550 lonI=116579950 msl=598 hae=0 geo=0 pdop=0 hdop=0 vdop=0 siv=0 fxq=0 fxt=0 pts=0 time=1717508009
+DEBUG | 13:33:29 66 [Router] Current RTC quality: Net. Ignoring time of RTC quality of Net
+INFO  | 13:33:29 66 [Router] updatePosition REMOTE node=0xe0d392b0 time=1717508009, latI=480780550, lonI=116579950
+DEBUG | 13:33:29 66 [Router] Node status update: 1 online, 4 total
+DEBUG | 13:33:29 66 [Router] Module 'position' considered
+DEBUG | 13:33:29 66 [Router] Module 'routing' wantsPacket=1
+INFO  | 13:33:29 66 [Router] Received routing from=0xe0d392b0, id=0x2f67f18e, portnum=3, payloadlen=18
+DEBUG | 13:33:29 66 [Router] Routing sniffing (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=5 Ch=0x0 Portnum=3 rxtime=1717508009 rxSNR=4 rxRSSI=-90)
+INFO  | 13:33:29 66 [Router] Rebroadcasting received floodmsg to neighbors
+DEBUG | 13:33:29 66 [Router] Expanding short PSK #1
+DEBUG | 13:33:29 66 [Router] Using AES128 key!
+DEBUG | 13:33:29 66 [Router] ESP32 crypt fr=e0d392b0, num=2f67f18e, numBytes=22!
+DEBUG | 13:33:29 66 [Router] enqueuing for send (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=4 Ch=0x8 encrypted rxtime=1717508009 rxSNR=4 rxRSSI=-90)
+DEBUG | 13:33:29 66 [Router] txGood=2,rxGood=8,rxBad=0
+DEBUG | 13:33:29 66 [Router] rx_snr found. hop_limit:4 rx_snr:4.000000
+DEBUG | 13:33:29 66 [Router] rx_snr found in packet. Setting tx delay:2772
+DEBUG | 13:33:29 66 [Router] Delivering rx packet (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=5 Ch=0x0 Portnum=3 rxtime=1717508009 rxSNR=4 rxRSSI=-90)
+DEBUG | 13:33:29 66 [Router] Update DB node 0xe0d392b0, rx_time=1717508009
+INFO  | 13:33:29 66 [Router] Heard a node on channel 0 we don't know, sending NodeInfo and asking for a response.
+DEBUG | 13:33:29 66 [Router] cancelSending id=0x321c87ea, removed=0
+DEBUG | 13:33:29 66 [Router] Sending NodeInfo will be ignored since we just sent it.
+DEBUG | 13:33:29 66 [Router] Forwarding to phone (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=5 Ch=0x0 Portnum=3 rxtime=1717508009 rxSNR=4 rxRSSI=-90)
+DEBUG | 13:33:29 66 [Router] Module 'routing' considered
+DEBUG | 13:33:30 67 [RadioIf] (bw=250, sf=11, cr=4/5) packet symLen=8 ms, payloadSize=38, time 518 ms
+DEBUG | 13:33:30 67 [RadioIf] Lora RX (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=4 Ch=0x8 encrypted rxSNR=7 rxRSSI=-21)
+DEBUG | 13:33:30 67 [RadioIf] AirTime - Packet received : 518ms
+DEBUG | 13:33:30 67 [Router] Found existing packet record for fr=0xe0d392b0,to=0xffffffff,id=0x2f67f18e
+DEBUG | 13:33:30 67 [Router] Found existing packet record for fr=0xe0d392b0,to=0xffffffff,id=0x2f67f18e
+DEBUG | 13:33:30 67 [Router] Add packet record (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=4 Ch=0x8 encrypted rxSNR=7 rxRSSI=-21)
+DEBUG | 13:33:30 67 [Router] Ignoring incoming msg, because we've already seen it (id=0x2f67f18e fr=0xb0 to=0xff, WantAck=0, HopLim=4 Ch=0x8 encrypted rxSNR=7 rxRSSI=-21)
+DEBUG | 13:33:30 67 [Router] cancelSending id=0x2f67f18e, removed=1
+DEBUG | 13:33:30 67 [Router] Incoming message was filtered 0xe0d392b0
+DEBUG | 13:33:44 81 [Power] Battery: usbPower=0, isCharging=0, batMv=4031, batPct=86
 ```
