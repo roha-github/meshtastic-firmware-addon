@@ -2,9 +2,10 @@
 
 ## Heltec Wireless Stick V3
 
-| ID | Role | Serial | ReBro | GPS | PSave | SBat | ADC | WBlu | DeS | LiS | MiW | Dis | TX | MQTT | BLE | boot | time | down |
-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
-| 1 | Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 99,5mA | 1:26 | 2,1mA |
+| ID | Power | Role | Serial | ReBro | GPS | PSave | SBat | ADC | WBlu | DeS | LiS | MiW | Dis | TX | MQTT | BLE | boot | time | down |
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+| 1 | bat | Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 99,5mA | 1:26 | 2,1mA |
+| 1 | usb | Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA |
 
 * PSave: power saving mode
 * SBat: shutdown on battery
@@ -83,20 +84,12 @@ INFO  | ??:??:?? 0 Loaded saved devicestate version 22, with nodecount: 6
 INFO  | ??:??:?? 0 Loading /prefs/config.proto
 [   923][E][vfs_api.cpp:105] open(): /littlefs/oem/oem.proto does not exist, no permits for creation
 [  1124][D][esp32-hal-cpu.c:244] setCpuFrequencyMhz(): PLL: 480 / 6 = 80 Mhz, APB: 80000000 Hz
-
 ... 3 Seconds ... 104 mA
 
 ... 120 Seconds ... 129 mA
 
 ... 125 Seconds ... 12 mA
-
 E (81116) RTCIO: rtc_gpio_isolate(171): RTCIO number error
 E (81116) RTCIO: rtc_gpio_isolate(171): RTCIO number error
 E (81117) RTCIO: rtc_gpio_isolate(171): RTCIO number error
-```
-
-
-```
-
-... 125 Seconds ... 12 mA
 ```
