@@ -21,7 +21,6 @@
 | 8 | 2.3.10.beta | bat | ROUTER_CLIENT | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 11.2mA | (2s) | | 35.2mA |
 | 8 | 2.3.10.beta | bat | REPEATER | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 11.1mA | (2s) | | 35.2mA |
 | 8 | 2.3.10.beta | bat | CLIENT_MUTE | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 11.0mA | (2s) | | 35.6mA |
-| 9 | 2.3.10.beta | bat | CLIENT_MUTE | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | FIX | 11.7mA | (2s) | | 35.6mA |
 
 * PSave: power saving mode
 * SBat: shutdown on battery
