@@ -4,12 +4,12 @@
 
 | ID | Firmware | Power | Role | Serial | ReBro | GPS | PSave | SBat | ADC | WBlu | DeS | LiS | MiW | Dis | TX | MQTT | BLE | boot | time | down | recv |
 |-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
-| 1 | 2.3.4.xxxd | bat | client | DIS | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 99,5mA | 1:26 | 2,1mA | |
-| 1 | 2.3.4.xxxd | usb | client | DIS | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA | |
-| 2 | 2.3.4.xxxd | usb | client | log | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 104mA | 1:26 | 12mA | |
-| 3 | 2.3.10.beta | usb | client | log | all | not | dis | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | fix | 105mA | | | |
-| 4 | 2.3.10.beta | usb | client | DIS | all | not | dis | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | fix | 107mA | | | |
-| 5 | 2.3.10.beta | usb | client | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | fix | 104mA |  | | |
+| 1 | 2.3.4.xxxd | bat | client | DIS | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | FIX | 99,5mA | 1:26 | 2,1mA | |
+| 1 | 2.3.4.xxxd | usb | client | DIS | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | FIX | 104mA | 1:26 | 12mA | |
+| 2 | 2.3.4.xxxd | usb | client | log | LOCAL | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | FIX | 104mA | 1:26 | 12mA | |
+| 3 | 2.3.10.beta | usb | client | log | all | not | dis | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | FIX | 105mA | | | |
+| 4 | 2.3.10.beta | usb | client | DIS | all | not | dis | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | FIX | 107mA | | | |
+| 5 | 2.3.10.beta | usb | client | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | FIX | 104mA |  | | |
 | 6 | 2.3.10.beta | usb | client | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 41mA |  | |  |
 | 7 | 2.3.10.beta | usb | ROUTER | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 17mA | (11s) | | 41mA |
 | 7 | 2.3.10.beta | usb | ROUTER_CLIENT | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 17mA | (11s) | | 41mA |
@@ -21,6 +21,7 @@
 | 8 | 2.3.10.beta | bat | ROUTER_CLIENT | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 11.2mA | (2s) | | 35.2mA |
 | 8 | 2.3.10.beta | bat | REPEATER | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 11.1mA | (2s) | | 35.2mA |
 | 8 | 2.3.10.beta | bat | CLIENT_MUTE | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | OFF | 11.0mA | (2s) | | 35.6mA |
+| 9 | 2.3.10.beta | bat | CLIENT_MUTE | DIS | all | not | ON | 0 | 0 | 60 | 4294967295 | 300 | 10 | 1 | 19 | ign | FIX | 11.7mA | (2s) | | 35.6mA |
 
 * PSave: power saving mode
 * SBat: shutdown on battery
