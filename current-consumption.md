@@ -86,9 +86,17 @@ INFO  | ??:??:?? 0 Loading /prefs/config.proto
 
 ... 3 Seconds ... 104 mA
 
+... 120 Seconds ... 129 mA
+
+... 125 Seconds ... 12 mA
+
 E (81116) RTCIO: rtc_gpio_isolate(171): RTCIO number error
 E (81116) RTCIO: rtc_gpio_isolate(171): RTCIO number error
 E (81117) RTCIO: rtc_gpio_isolate(171): RTCIO number error
+```
+
+
+```
 
 ... 125 Seconds ... 12 mA
 ```
