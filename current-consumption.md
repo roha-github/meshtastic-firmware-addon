@@ -2,9 +2,9 @@
 
 ## Heltec Wireless Stick V3
 
-| Role | Serial | ReBro | GPS | PSave | SBat | ADC | WBlu | DeS | LiS | MiW | Dis | TX | MQTT | BLE | boot | time | down |
-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
-| Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 99,5mA | 1:26 | 2,1mA |
+| ID | Role | Serial | ReBro | GPS | PSave | SBat | ADC | WBlu | DeS | LiS | MiW | Dis | TX | MQTT | BLE | boot | time | down |
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+| 1 | Client | dis | local | not | dis | 80 | 0 | 60 | 86405 | 328 | 10 | 1 | 19 | ign | fix | 99,5mA | 1:26 | 2,1mA |
 
 * PSave: power saving mode
 * SBat: shutdown on battery
@@ -15,6 +15,7 @@
 * Dis: display
 * TX: lora tx power
 
+Log Setup 1 - Client: serial debug disabled
 ```
 ESP-ROM:esp32s3-20210327
 Build:Mar 27 2021
