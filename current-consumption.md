@@ -32,6 +32,14 @@
 * Dis: display
 * TX: lora tx power
 
+## TBeam
+
+| ID | Firmware | Power | Role | Serial | ReBro | LED | GPS | PSave | SBat | ADC | WBlu | DeS | LiS | MiW | Dis | TX | MQTT | BLE | boot | time | recv | deep |
+|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|-|
+| 1 | 2.3.10.xxxb | bat | ROUTER_CLIENT | DIS | LOCAL | on | enabled | dis | 1781 | 0 | 60 | 86403 | 86428 | 10 | 1 | 27 | ign | FIX | 103,0mA | | | 64uA |
+
+
+
 Log Setup 1 - Client: serial debug disabled
 ```
 ESP-ROM:esp32s3-20210327
