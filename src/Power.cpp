@@ -19,9 +19,9 @@
 #include "meshUtils.h"
 #include "sleep.h"
 
-//>>> power timer switch
+//>>>fork>>> Power Timer Switch
 #include "gps/RTC.h"                        // use real time clock
-//<<<
+//<<<fork<<<
 
 // Working USB detection for powered/charging states on the RAK platform
 #ifdef NRF_APM
@@ -73,7 +73,7 @@ static const uint8_t ext_chrg_detect_value = EXT_CHRG_DETECT_VALUE;
 #endif
 #endif
 
-#if HAS_TELEMETRY && !defined(ARCH_PORTDUINO)
+#if HAS_TELEMETRY && !MESHTASTIC_EXCLUDE_ENVIRONMENTAL_SENSOR && !defined(ARCH_PORTDUINO)
 INA260Sensor ina260Sensor;
 INA219Sensor ina219Sensor;
 INA3221Sensor ina3221Sensor;
@@ -188,7 +188,7 @@ class AnalogBatteryLevel : public HasBatteryLevel
     virtual uint16_t getBattVoltage() override
     {
 
-#if defined(HAS_TELEMETRY) && !defined(ARCH_PORTDUINO) && !defined(HAS_PMU)
+#if HAS_TELEMETRY && !defined(ARCH_PORTDUINO) && !defined(HAS_PMU) && !MESHTASTIC_EXCLUDE_ENVIRONMENTAL_SENSOR
         if (hasINA()) {
             LOG_DEBUG("Using INA on I2C addr 0x%x for device battery voltage\n", config.power.device_battery_ina_address);
             return getINAVoltage();
@@ -227,7 +227,17 @@ class AnalogBatteryLevel : public HasBatteryLevel
             raw = raw / BATTERY_SENSE_SAMPLES;
             scaled = operativeAdcMultiplier * ((1000 * AREF_VOLTAGE) / pow(2, BATTERY_SENSE_RESOLUTION_BITS)) * raw;
 #endif
-            last_read_value += (scaled - last_read_value) * 0.5; // Virtual LPF
+
+            if (!initial_read_done) {
+                // Flush the smoothing filter with an ADC reading, if the reading is plausibly correct
+                if (scaled > last_read_value)
+                    last_read_value = scaled;
+                initial_read_done = true;
+            } else {
+                // Already initialized - filter this reading
+                last_read_value += (scaled - last_read_value) * 0.5; // Virtual LPF
+            }
+
             // LOG_DEBUG("battery gpio %d raw val=%u scaled=%u filtered=%u\n", BATTERY_PIN, raw, (uint32_t)(scaled), (uint32_t)
             // (last_read_value));
         }
@@ -361,10 +371,12 @@ class AnalogBatteryLevel : public HasBatteryLevel
     const float noBatVolt = (OCV[NUM_OCV_POINTS - 1] - 500) * NUM_CELLS;
     // Start value from minimum voltage for the filter to not start from 0
     // that could trigger some events.
+    // This value is over-written by the first ADC reading, it the voltage seems reasonable.
+    bool initial_read_done = false;
     float last_read_value = (OCV[NUM_OCV_POINTS - 1] * NUM_CELLS);
     uint32_t last_read_time_ms = 0;
 
-#if defined(HAS_TELEMETRY) && !defined(ARCH_PORTDUINO)
+#if HAS_TELEMETRY && !MESHTASTIC_EXCLUDE_ENVIRONMENTAL_SENSOR && !defined(ARCH_PORTDUINO)
     uint16_t getINAVoltage()
     {
         if (nodeTelemetrySensorsMap[meshtastic_TelemetrySensorType_INA219].first == config.power.device_battery_ina_address) {
@@ -504,12 +516,7 @@ void Power::shutdown()
 {
     LOG_INFO("Shutting down\n");
 
-#ifdef HAS_PMU
-    if (pmu_found == true) {
-        PMU->setChargingLedMode(XPOWERS_CHG_LED_OFF);
-        PMU->shutdown();
-    }
-#elif defined(ARCH_NRF52) || defined(ARCH_ESP32)
+#if defined(ARCH_NRF52) || defined(ARCH_ESP32)
 #ifdef PIN_LED1
     ledOff(PIN_LED1);
 #endif
@@ -519,14 +526,15 @@ void Power::shutdown()
 #ifdef PIN_LED3
     ledOff(PIN_LED3);
 #endif
-//>>> power timer switch
+//>>>fork>>> Power Timer Switch
     // doDeepSleep(DELAY_FOREVER, false);
     if (pts_shutdowntime_sec > 0) {
+      LOG_DEBUG("{PTS} force deep sleep\n");
       doDeepSleep(pts_shutdowntime_sec*1000, false);
     } else {
-      doDeepSleep(DELAY_FOREVER, false); // doDeepSleep(30*1000, false); //+++ test
+      doDeepSleep(DELAY_FOREVER, false);
     }
-//<<<
+//<<<fork<<<
 #endif
 }
 
@@ -573,16 +581,16 @@ void Power::readPowerStatus()
         const PowerStatus powerStatus2 = PowerStatus(
             hasBattery ? OptTrue : OptFalse, batteryLevel->isVbusIn() || NRF_USB == OptTrue ? OptTrue : OptFalse,
             batteryLevel->isCharging() || NRF_USB == OptTrue ? OptTrue : OptFalse, batteryVoltageMv, batteryChargePercent);
-//>>> power timer switch
+//>>>fork>>> Power Timer Switch
         // LOG_DEBUG("Battery: usbPower=%d, isCharging=%d, batMv=%d, batPct=%d\n", powerStatus2.getHasUSB(),
-        //          powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent());
+        //           powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent());
         //
         // --- magic values to setup power timer switch ---
         // config.power.on_battery_shutdown_after_secs = 1791    # timer switch enabled    (cfg % 10 == 1 enabled >= 90% on)
         //                                               xxx2    # save every interval ~ 24 write ops per day
-        //                                               xxx3    # save only long intervals ~ 4 write ops per day (every 6 hours)
+        //                                               xxx3    # save only long intervals ~ 3 write ops per day (every 8 hours)
         // config.power.sds_secs                       = 86405   # 5min per hour           (cfg % 100 == 5)
-        // config.power.ls_secs                        = 86326   # 15min=5+2x5 every 6hour (cfg % 100 - % 10)
+        // config.power.ls_secs                        = 86328   # 15min=5+2x5 every 8hour (cfg % 100 - % 10)
 
         // config
         uint8_t  pts_cfg_mode = (config.power.on_battery_shutdown_after_secs % 10);  // power timer switch mode
@@ -598,7 +606,6 @@ void Power::readPowerStatus()
         // time
         uint32_t pts_dev_uptime_sec = millis()/1000;                          // time since lastest restart
         uint32_t pts_dev_rtcuptime = getTime(false);                          // time since start (or UTC time)
-        uint32_t pts_dev_sec_day = (pts_dev_rtcuptime % SEC_PER_DAY);         // seconds since first start
         uint32_t pts_dev_sec_hour = (pts_dev_rtcuptime % SEC_PER_HOUR);       // seconds since hour interval
         uint32_t pts_dev_hour = (pts_dev_rtcuptime / SEC_PER_HOUR);           // current hour interval
 
@@ -678,7 +685,7 @@ void Power::readPowerStatus()
             shutdownAtMsec = millis() + DEFAULT_SHUTDOWN_SECONDS * 1000;      // shutdowntimer - buildin used by main
           }
         }
-//<<<
+//<<<fork<<<
         newStatus.notifyObservers(&powerStatus2);
 #ifdef DEBUG_HEAP
         if (lastheap != memGet.getFreeHeap()) {
