@@ -6,7 +6,7 @@
 // You need to call new() for this in src/modules/Modules.cpp setupModules()
 DemoDIYModule *demoDIYModule;
 
-/*
+/* (copy)
  * Define what we want to save and load from flash.
  *
  * We'll store stuff in this struct, then write / read as needed.
