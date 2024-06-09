@@ -187,6 +187,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * lora update over the air
 * automatic reboot [#3982](https://github.com/meshtastic/firmware/issues/3982)
 * remote messaging via lora (like remote admin)
+* different hop limit for low prio portnum (e.g. telemetry)
 
 ### binary transfer
 
