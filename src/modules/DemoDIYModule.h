@@ -6,7 +6,7 @@
 #ifdef DIYMODULES_DEMO
 
 /*
- * DIY Modules - Demo
+ * DIY Modules - Demo (copy)
  *
  * This code is *not* official,
  * This code is *not* part of the Meshtastic project.
