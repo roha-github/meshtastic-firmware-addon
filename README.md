@@ -21,9 +21,23 @@ config.device.role                          = REPEATER | ROUTER | ROUTER_CLIENT
 ### Power Timer Switch
 
 ```
-config.power.on_battery_shutdown_after_secs = 1783    # timer switch enabled    (cfg % 10 == 1..3 enabled >= 80% on)
+config.power.on_battery_shutdown_after_secs =  1783   # timer switch enabled    (cfg % 10 == 1..3 enabled >= 80% on)
 config.power.sds_secs                       = 86405   # 5min per hour           (cfg % 100 == 5)
 config.power.ls_secs                        = 86328   # 15min=5+2x5 every 8hour (cfg % 100 - % 10)
+
+config.power.on_battery_shutdown_after_secs =   9p4   # timer switch enabled    (cfg % 10 == 4 Pattern 0..9 )
+                                                994   # pattern 9  high/low     (>90% always <10% shutdown) balanced
+                                                984   # pattern 8  high/low     (>80% always <20% shutdown) balanced
+                                                974   # pattern 7  high/low     (>70% always <30% shutdown) balanced
+                                                964   # pattern 6  high/low     (>85% always <60% shutdown) safety
+                                                954   # pattern 5  high/low     (>80% always <50% shutdown) safety
+                                                944 * # pattern 4  high/low     (>75% always <40% shutdown) safety
+                                                934   # pattern 3  high/low     (>40% always <30% shutdown) alwayson
+                                                924   # pattern 2  high/low     (>30% always <20% shutdown) alwayson
+                                                914   # pattern 1  high/low     (>20% always <10% shutdown) alwayson
+                                                904   # pattern 0  high/low     (>10% always < 0% shutdown) alwayson
+config.power.sds_secs                       = 43205 * # 5min per hour           (cfg % 100 == 5)   resume 12 hours
+config.power.ls_secs                        = 43228 * # 15min=5+2x5 every 8hour (cfg % 100 - % 10)
 
 additional settings:
 device.role = ROUTER_CLIENT
