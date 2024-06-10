@@ -71,6 +71,8 @@ NRF52Bluetooth *nrf52Bluetooth;
 #endif
 
 #include "LLCC68Interface.h"
+#include "LR1110Interface.h"
+#include "LR1120Interface.h"
 #include "RF95Interface.h"
 #include "SX1262Interface.h"
 #include "SX1268Interface.h"
@@ -242,7 +244,7 @@ void setup()
 
 //>>>fork>>> Boot Info
     // LOG_INFO("\n\n//\\ E S H T /\\ S T / C\n\n");
-    LOG_INFO("\n\n//\\ E S H T /\\ S T / C\n\nmeshtastic/f24190b\n\n");  // 2024-06-04 Build-b = 20(24)-(06)-(04) = 24000+06*31+04
+    LOG_INFO("\n\n//\\ E S H T /\\ S T / C\n\nmeshtastic/f24196a\n\n");  // 2024-06-10 Build-a = 20(24)-(06)-(10) = 24000+06*31+10
 //<<<fork<<<
 
     initDeepSleep();
@@ -542,7 +544,12 @@ void setup()
     SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::PMSA0031, meshtastic_TelemetrySensorType_PMSA003I)
     SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::RCWL9620, meshtastic_TelemetrySensorType_RCWL9620)
     SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::VEML7700, meshtastic_TelemetrySensorType_VEML7700)
+    SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::TSL2591, meshtastic_TelemetrySensorType_TSL25911FN)
+    SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::OPT3001, meshtastic_TelemetrySensorType_OPT3001)
+    SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::MLX90632, meshtastic_TelemetrySensorType_MLX90632)
     SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::SHT4X, meshtastic_TelemetrySensorType_SHT4X)
+    SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::AHT10, meshtastic_TelemetrySensorType_AHT10)
+    SCANNER_TO_SENSORS_MAP(ScanI2C::DeviceType::DFROBOT_LARK, meshtastic_TelemetrySensorType_DFROBOT_LARK)
 
     i2cScanner.reset();
 
@@ -883,6 +890,32 @@ void setup()
         } else {
             LOG_INFO("LLCC68 Radio init succeeded, using LLCC68 radio\n");
             radioType = LLCC68_RADIO;
+        }
+    }
+#endif
+
+#if defined(USE_LR1110)
+    if (!rIf) {
+        rIf = new LR1110Interface(RadioLibHAL, LR1110_SPI_NSS_PIN, LR1110_IRQ_PIN, LR1110_NRESER_PIN, LR1110_BUSY_PIN);
+        if (!rIf->init()) {
+            LOG_WARN("Failed to find LR1110 radio\n");
+            delete rIf;
+            rIf = NULL;
+        } else {
+            LOG_INFO("LR1110 Radio init succeeded, using LR1110 radio\n");
+        }
+    }
+#endif
+
+#if defined(USE_LR1120)
+    if (!rIf) {
+        rIf = new LR1120Interface(RadioLibHAL, LR1120_SPI_NSS_PIN, LR1120_IRQ_PIN, LR1120_NRESER_PIN, LR1120_BUSY_PIN);
+        if (!rIf->init()) {
+            LOG_WARN("Failed to find LR1120 radio\n");
+            delete rIf;
+            rIf = NULL;
+        } else {
+            LOG_INFO("LR1120 Radio init succeeded, using LR1120 radio\n");
         }
     }
 #endif
