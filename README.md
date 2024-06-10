@@ -167,7 +167,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * upload to Thingspeak [#3626](https://github.com/meshtastic/firmware/issues/3626)
 * changeable MAC address (node id)
 * use internal RTC temperature sensor [#3883](https://github.com/meshtastic/firmware/issues/3883)
-* virtual waypoint (fake position)
+* ~~virtual waypoint (fake position), existing feature~~
 * message store to flash [#3664](https://github.com/meshtastic/firmware/issues/3664), [#3637](https://github.com/meshtastic/firmware/issues/3637)
 * lorawan gateway for sensors [#3838](https://github.com/meshtastic/firmware/issues/3838)
 * variables for canned message (e.g. $rssi, $snr, $lat, $lon)
