@@ -54,7 +54,7 @@ RTC_NOINIT_ATTR uint64_t RTC_reg_b;
 
 esp_adc_cal_characteristics_t *adc_characs = (esp_adc_cal_characteristics_t *)calloc(1, sizeof(esp_adc_cal_characteristics_t));
 #ifndef ADC_ATTENUATION
-static const adc_atten_t atten = ADC_ATTEN_DB_11;
+static const adc_atten_t atten = ADC_ATTEN_DB_12;
 #else
 static const adc_atten_t atten = ADC_ATTENUATION;
 #endif
@@ -567,14 +567,24 @@ void Power::readPowerStatus()
 #ifdef NRF_APM // Section of code detects USB power on the RAK4631 and updates the power states.  Takes 20 seconds or so to detect
                // changes.
 
+        static nrfx_power_usb_state_t prev_nrf_usb_state = (nrfx_power_usb_state_t)-1; // -1 so that state detected at boot
         nrfx_power_usb_state_t nrf_usb_state = nrfx_power_usbstatus_get();
 
-        if (nrf_usb_state == NRFX_POWER_USB_STATE_DISCONNECTED) {
-            powerFSM.trigger(EVENT_POWER_DISCONNECTED);
-            NRF_USB = OptFalse;
-        } else {
-            powerFSM.trigger(EVENT_POWER_CONNECTED);
-            NRF_USB = OptTrue;
+        // If state changed
+        if (nrf_usb_state != prev_nrf_usb_state) {
+            // If changed to DISCONNECTED
+            if (nrf_usb_state == NRFX_POWER_USB_STATE_DISCONNECTED) {
+                powerFSM.trigger(EVENT_POWER_DISCONNECTED);
+                NRF_USB = OptFalse;
+            }
+            // If changed to CONNECTED / READY
+            else {
+                powerFSM.trigger(EVENT_POWER_CONNECTED);
+                NRF_USB = OptTrue;
+            }
+
+            // Cache the current state
+            prev_nrf_usb_state = nrf_usb_state;
         }
 #endif
         // Notify any status instances that are observing us
@@ -586,22 +596,52 @@ void Power::readPowerStatus()
         //           powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent());
         //
         // --- magic values to setup power timer switch ---
-        // config.power.on_battery_shutdown_after_secs = 1791    # timer switch enabled    (cfg % 10 == 1 enabled >= 90% on)
-        //                                               xxx2    # save every interval ~ 24 write ops per day
-        //                                               xxx3    # save only long intervals ~ 3 write ops per day (every 8 hours)
-        // config.power.sds_secs                       = 86405   # 5min per hour           (cfg % 100 == 5)
-        // config.power.ls_secs                        = 86328   # 15min=5+2x5 every 8hour (cfg % 100 - % 10)
+        // config.power.on_battery_shutdown_after_secs =  1791   # timer switch enabled    (cfg % 10 == 1 enabled >= 90% on)
+        //                                                xxx2   # save every interval ~ 24 write ops per day
+        //                                                xxx3   # save only long intervals ~ 3 write ops per day (every 8 hours)
+        // config.power.on_battery_shutdown_after_secs =   9p4   # timer switch enabled    (cfg % 10 == 4 Pattern 0..9 )
+        //                                                 994   # pattern 9  high/low     (>90% always <10% shutdown) balanced
+        //                                                 984   # pattern 8  high/low     (>80% always <20% shutdown) balanced
+        //                                                 974   # pattern 7  high/low     (>70% always <30% shutdown) balanced
+        //                                                 964   # pattern 6  high/low     (>85% always <60% shutdown) safety
+        //                                                 954   # pattern 5  high/low     (>80% always <50% shutdown) safety
+        //                                                 944 * # pattern 4  high/low     (>75% always <40% shutdown) safety
+        //                                                 934   # pattern 3  high/low     (>40% always <30% shutdown) alwayson
+        //                                                 924   # pattern 2  high/low     (>30% always <20% shutdown) alwayson
+        //                                                 914   # pattern 1  high/low     (>20% always <10% shutdown) alwayson
+        //                                                 904   # pattern 0  high/low     (>10% always < 0% shutdown) alwayson
+        // config.power.sds_secs                       = 43205 * # 5min per hour           (cfg % 100 == 5)   resume 12 hours
+        // config.power.ls_secs                        = 43228 * # 15min=5+2x5 every 8hour (cfg % 100 - % 10)
 
         // config
         uint8_t  pts_cfg_mode = (config.power.on_battery_shutdown_after_secs % 10);  // power timer switch mode
         bool     pts_cfg_enabled = (pts_cfg_mode >= 1);                              // power timer switch enabled
         bool     pts_cfg_saveshort = (pts_cfg_mode == 2);                            // write prefs every hour
         bool     pts_cfg_savelong = (pts_cfg_mode == 3);                             // write prefs only long intervals
-        uint8_t  pts_cfg_alwayson_pct = (config.power.on_battery_shutdown_after_secs % 100) - pts_cfg_mode;  // percentage
+        uint8_t  pts_cfg_mode_parm2 = (config.power.on_battery_shutdown_after_secs % 100) - pts_cfg_mode;  // percentage
+        uint8_t  pts_cfg_alwayson_pct = pts_cfg_mode_parm2;                          // percentage (mode 1..3)
         uint32_t pts_cfg_short_uptimer_sec = (config.power.sds_secs % 100) * 60;     // uptime short and long
         uint8_t  pts_cfg_long_interval = (config.power.ls_secs % 10);                // interval hours for long uptime
         uint8_t  pts_cfg_long_multipier = ((config.power.ls_secs % 100)-pts_cfg_long_interval)/10;           // multiplier
         uint32_t pts_cfg_long_uptimer_sec = pts_cfg_short_uptimer_sec + pts_cfg_short_uptimer_sec * pts_cfg_long_multipier;
+
+        // config - pattern (mode 4)
+        uint8_t  pts_cfg_shutdown_pct = 0;                                           // shutdown percentage
+        if (pts_cfg_mode == 4) {                                                     // mode 4 = battery protection
+          pts_cfg_savelong = true;                                                   // write only at long interval
+          switch (pts_cfg_mode_parm2) {
+            case 9: pts_cfg_alwayson_pct = 90;  pts_cfg_shutdown_pct = 10; break;    // focus interval
+            case 8: pts_cfg_alwayson_pct = 80;  pts_cfg_shutdown_pct = 20; break;    // focus interval
+            case 7: pts_cfg_alwayson_pct = 70;  pts_cfg_shutdown_pct = 30; break;    // focus interval
+            case 6: pts_cfg_alwayson_pct = 85;  pts_cfg_shutdown_pct = 60; break;    // focus shutdown
+            case 5: pts_cfg_alwayson_pct = 80;  pts_cfg_shutdown_pct = 50; break;    // focus shutdown
+            case 4: pts_cfg_alwayson_pct = 75;  pts_cfg_shutdown_pct = 40; break;    // focus shutdown
+            case 3: pts_cfg_alwayson_pct = 40;  pts_cfg_shutdown_pct = 30; break;    // focus alwayson
+            case 2: pts_cfg_alwayson_pct = 30;  pts_cfg_shutdown_pct = 20; break;    // focus alwayson
+            case 1: pts_cfg_alwayson_pct = 20;  pts_cfg_shutdown_pct = 10; break;    // focus alwayson
+            case 0: pts_cfg_alwayson_pct = 10;  pts_cfg_shutdown_pct =  0; break;    // focus alwayson
+          }
+        }
 
         // time
         uint32_t pts_dev_uptime_sec = millis()/1000;                          // time since lastest restart
@@ -619,6 +659,7 @@ void Power::readPowerStatus()
         pts_shutdowntime_sec = 0;                                             // shutdown if needed
         pts_saveprefs_flag = false;                                           // disable write ops per default
         if (pts_cfg_enabled) {                                                // power timer switch enabled
+          // switch on/off interval
           pts_saveprefs_flag = pts_cfg_saveshort;                             // enable short write ops                              
           if (pts_rtc_exists) {                                               // --- real time clock exists ---
             if (pts_cfg_long_interval > 0) {                                  // avoid IntegerDivideByZero
@@ -662,9 +703,23 @@ void Power::readPowerStatus()
               }
             }
           }
+          // always on charged battery
           if (powerStatus2.getBatteryChargePercent() > pts_cfg_alwayson_pct){ // fully charged 
             if (powerStatus2.getHasUSB() == false) {                          // not usb powered   
               pts_shutdowntime_sec = 0;                                       // don't shutdown
+            }
+          }
+          // shutdown on discharged battery (autoresume after super deep sleep)
+          if ((powerStatus2.getBatteryChargePercent() < pts_cfg_shutdown_pct) // on dischared = off
+              && (millis() > 30*1000)) {                                      // min 30 seconds uptime
+            if (powerStatus2.getHasUSB() == false) {                          // not usb powered
+              pts_shutdowntime_sec = config.power.sds_secs/3600;              // SDS to hours
+              if (pts_shutdowntime_sec >= 1) pts_shutdowntime_sec--;          // without next hour
+              if (pts_rtc_exists) { 
+                pts_shutdowntime_sec = SEC_PER_HOUR - pts_rtc_sec_hour + 60 * pts_shutdowntime_sec; 
+              } else {
+                pts_shutdowntime_sec = SEC_PER_HOUR - pts_dev_sec_hour + 60 * pts_shutdowntime_sec; 
+              }
             }
           }
         }
