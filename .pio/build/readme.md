@@ -10,6 +10,8 @@
 | T-Beam S3 Core | firmware-tbeam-s3-core-2.3.12.f24196a.bin.factory.bin |
 | T-LoRa 2.1-1.6 | firmware-tlora-v2-1-1_6-2.3.12.f24196a.factory.bin |
 
+Download previous versions [here](https://github.com/roha-github/meshtastic-firmware-addon/tree/t2.3.12.f24196a/.pio/build)
+
 ## Install esptool
 
 ```
