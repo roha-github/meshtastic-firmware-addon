@@ -21,7 +21,7 @@ pip3 install --upgrade esptool
 
 ## Download 2.3.4 and addon
 
-* [firmware-2.3.8.d490a33.zip](https://github.com/meshtastic/firmware/releases/download/v2.3.8.d490a33/firmware-2.3.8.d490a33.zip)
+* [firmware-2.3.8.d490a33.zip](https://github.com/meshtastic/firmware/releases/download/v2.3.8.d490a33/firmware-2.3.8.d490a33.zip) ~ just need the installer from that
 * firmware-tlora-v2-1-1_6-2.3.4.202405132333.factory.bin
 
 ```
