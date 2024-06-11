@@ -1,11 +1,14 @@
 # Firmware builds
 
-| Device | Build | Firmware |
-|---|---|---|
-| T-LoRa 2.1 1.6 | 202405132333d | firmware-tlora-v2-1-1_6-2.3.4.***.factory.bin |
-| T-Beam | 202405132333d | firmware-tbeam-2.3.4.***.factory.bin |
-| Heltec 2.1 | 202405132333d | firmware-heltec-v2_1-2.3.4.***.factory.bin |
-| Heltec 3 | 202405132333d | firmware-heltec-v3-2.3.4.***.factory.bin |
+| Device | Firmware |
+|---|---|
+| Heltec V2 | firmware-heltec-v2_1-2.3.12.f24196a.factory.bin |
+| Heltec V3 | firmware-heltec-v3-2.3.12.f24196a.factory.bin |
+| Heltec Wireless Tracker V1.0 | firmware-heltec-wireless-tracker-V1-0-2.3.12.f24196a.factory.bin |
+| Heltec Wireless Stick Lite V3 | firmware-heltec-wsl-v3-2.3.12.f24196a.factory.bin |
+| T-Beam | firmware-tbeam-2.3.12.f24196a.factory.bin |
+| T-Beam S3 Core | firmware-tbeam-s3-core-2.3.12.f24196a.bin.factory.bin |
+| T-LoRa 2.1-1.6 | firmware-tlora-v2-1-1_6-2.3.12.f24196a.factory.bin |
 
 ## Install esptool
 
@@ -22,7 +25,7 @@ pip3 install --upgrade esptool
 ```
 .\python-3-12-meshtastic\Scripts\activate
 cd python-3-12-meshtastic\meshtastic-firmware-2.3.4.ea61808
-device-install.bat -f firmware-tlora-v2-1-1_6-2.3.4.202405132333.factory.bin
+device-install.bat -f firmware-tlora-v2-1-1_6-2.3.12.f24196a.factory.bin
 
 Trying to flash update firmware-tlora-v2-1-1_6-2.3.4.addons-power-timer-switch.factory.bin, but first erasing and writing system information"
 esptool.py v4.7.0
