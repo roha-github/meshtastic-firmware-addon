@@ -79,7 +79,9 @@ The newest binary you can download from [meshtastic-firmware-addon/tree/master/.
 
 The number of hops is limited to 3 by default. If a remote location already requires 3 hops to reach the first foreign node, then there are no hops left for responses from foreign nodes, unless everyone in the mesh would increase the hop limit.
 
-Meshtastic only forwards messages from nodes if the message ID for this node has not been forwarded within the last 10 minutes.
+The feature is intended for longer chains of 20-30 repeaters or routers to connect a remote outback to a central mesh or in caves. The transmission of the message takes 3-5 seconds per hop, i.e. up to one minute with 10 repeaters.
+
+Note: use this feature with caution. Meshtastic stores the ID of the sender and message for 10 minutes so that they are not rebroadcast again. Theoretically, infinite loops could occur if there is a lot of traffic in the mesh network and the buffer for the message ID that has already been sent overflows. 
 
 ## Power Timer Switch
 
@@ -139,6 +141,29 @@ An interval can be defined in which the node remains switched on for a longer up
 
 * 0 = interval deactivated
 * 2..8 = interval of 2 .. 8 hours (12x ... 3x a day)
+
+### Shutdown Percentage (Mode 4)
+
+The early shutdown uses the remaining charge as a buffer so that the node does not drop to 0% charge. 
+
+Despite the timer, the battery may discharge and the node may no longer start if there is no sun for a longer period of time. Mode 4 switches to deep sleep beforehand and wakes up again after SDS configuration. In principle, the node DB is only saved for the long intervals.
+
+| Sub-Mode 4 | Always-on PCT | Shutdown PCT | hint |
+|---|---|---|---|
+| xx94 | >90% | <10% | balanced (summer) |
+| xx84 | >80% | <20% | balanced (summer) |
+| xx74 | >70% | <30% | balanced (summer) |
+| xx64 | >85% | <60% | safety (winter) |
+| xx54 | >80% | <50% | safety (winter) |
+| xx44 | >75% | <40% | safety (winter) |
+| xx34 | >40% | <30% | alwayson |
+| xx24 | >30% | <20% | alwayson |
+| xx14 | >20% | <10% | alwayson |
+| xx04 | >10% | n/a | alwayson |
+
+Example: 974 means that the node is always in continuous operation above 70% battery charge. A solar node with a large panel and battery should always be switched on in normal sunlight. Between 70% and 30%, the node switches to interval mode and can still be reached every full hour. Below 30% battery charge, the SDS 43228 node switches off for 12 hours in order to save energy and recharge the battery via the solar cell.
+
+
 
 ### Timer variant
 
