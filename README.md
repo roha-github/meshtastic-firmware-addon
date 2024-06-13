@@ -15,7 +15,7 @@ We use "special" values to configure the add-ons and reuse default App and CLI.
 
 ```
 config.device.node_info_broadcast_secs      = 3601    # 1 enabled | 0 disable zero hops
-config.device.role                          = REPEATER | ROUTER | ROUTER_CLIENT
+config.device.role                          = REPEATER | ROUTER | ROUTER_CLIENT | CLIENT
 ```
 
 ### Power Timer Switch
