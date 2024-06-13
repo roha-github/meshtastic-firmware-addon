@@ -2,7 +2,7 @@
 
 | Device | Firmware |
 |---|---|
-| Heltec V2 | firmware-heltec-v2_1-2.3.12.f24196b.factory.bin |
+| Heltec V2.1 | firmware-heltec-v2_1-2.3.12.f24196b.factory.bin |
 | Heltec V3 | firmware-heltec-v3-2.3.12.f24196b.factory.bin |
 | Heltec Wireless Tracker V1.0 | firmware-heltec-wireless-tracker-V1-0-2.3.12.f24196b.factory.bin |
 | Heltec Wireless Stick Lite V3 | firmware-heltec-wsl-v3-2.3.12.f24196b.factory.bin |
