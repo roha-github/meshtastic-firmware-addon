@@ -31,7 +31,11 @@ class PowerFSMThread : public OSThread
                    millis() > (timeLastPowered +
                                Default::getConfiguredOrDefaultMs(
                                    config.power.on_battery_shutdown_after_secs))) { // shutdown after 30 minutes unpowered
-            powerFSM.trigger(EVENT_SHUTDOWN);
+//>>>fork>>> Power Timer Switch
+          if ((config.power.on_battery_shutdown_after_secs % 10) == 0) {            // power time switch not enabled 
+            powerFSM.trigger(EVENT_SHUTDOWN);                                       // deep sleep on_battery_shutdown_after_secs
+          }                                                                         // always shutdown on getHasUSB() issue
+//<<<fork<<<
         }
 
         return 100;
