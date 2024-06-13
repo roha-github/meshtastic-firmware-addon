@@ -610,8 +610,19 @@ void Power::readPowerStatus()
         //                                                 924   # pattern 2  high/low     (>30% always <20% shutdown) alwayson
         //                                                 914   # pattern 1  high/low     (>20% always <10% shutdown) alwayson
         //                                                 904   # pattern 0  high/low     (>10% always < 0% shutdown) alwayson
-        // config.power.sds_secs                       = 43205 * # 5min per hour           (cfg % 100 == 5)   resume 12 hours
+        // config.power.sds_secs                       = 43205 * # 5min per hour           (cfg % 100 == 5)
         // config.power.ls_secs                        = 43228 * # 15min=5+2x5 every 8hour (cfg % 100 - % 10)
+
+        // battery charge
+        uint16_t pts_batterycharge_pct = 2 * powerStatus2.getBatteryChargePercent(); // current value
+        if (pts_batterycharge_cnt == 0) {                                            // after boot
+          if (pts_batterycharge_pct > 0) {                                           // usefull result
+            pts_batterycharge_2pct = pts_batterycharge_pct;                          // overwrite dummy 
+          }
+        }
+        pts_batterycharge_pct += pts_batterycharge_2pct;                             // last value
+        pts_batterycharge_2pct = pts_batterycharge_pct / 2;                          // avagage
+        if (pts_batterycharge_cnt < 250) {pts_batterycharge_cnt++;}                  // counter
 
         // config
         uint8_t  pts_cfg_mode = (config.power.on_battery_shutdown_after_secs % 10);  // power timer switch mode
@@ -704,14 +715,18 @@ void Power::readPowerStatus()
             }
           }
           // always on charged battery
-          if (powerStatus2.getBatteryChargePercent() > pts_cfg_alwayson_pct){ // fully charged 
-            if (powerStatus2.getHasUSB() == false) {                          // not usb powered   
-              pts_shutdowntime_sec = 0;                                       // don't shutdown
+          if (pts_batterycharge_cnt >= 6) {                                   // calibrated measurement
+            if (pts_batterycharge_2pct > 2 * pts_cfg_alwayson_pct) {          // battery charged
+              if (powerStatus2.getHasUSB() == false) {                        // not usb powered
+                pts_shutdowntime_sec = 0;                                     // don't shutdown
+              }
             }
+          } else {                                                            // multiple measurements required 
+            pts_shutdowntime_sec = 0;                                         // don't shutdown
           }
-          // shutdown on discharged battery (autoresume after super deep sleep)
-          if ((powerStatus2.getBatteryChargePercent() < pts_cfg_shutdown_pct) // on dischared = off
-              && (millis() > 30*1000)) {                                      // min 30 seconds uptime
+          // shutdown on discharged battery (autoresume after deep sleep)
+          if ( (pts_batterycharge_2pct < 2 * pts_cfg_shutdown_pct)            // battery discharged
+            && (pts_batterycharge_cnt >= 6) ) {                               // calibrated measurement
             if (powerStatus2.getHasUSB() == false) {                          // not usb powered
               pts_shutdowntime_sec = config.power.sds_secs/3600;              // SDS to hours
               if (pts_shutdowntime_sec >= 1) pts_shutdowntime_sec--;          // without next hour
@@ -726,10 +741,10 @@ void Power::readPowerStatus()
 
         // DEBUG | ??:??:?? 161 [Power] Battery{PTS}: usbPower=1, isCharging=1, batMv=4650, batPct=100, cfgOBS=1891, cfgSDS=86405, cfgLS=86326, uptS=161, rtcHS=0, telS=0, sdtS=0
         // DEBUG | 00:09:06 241 [Power] Battery{PTS}: usbPower=1, isCharging=1, batMv=4606, batPct=100, cfgOBS=1891, cfgSDS=86405, cfgLS=86326, uptS=241, rtcHS=546, telS=0, sdtS=0
-        LOG_DEBUG("Battery{PTS}: usbPower=%d, isCharging=%d, batMv=%d, batPct=%d, cfgOBS=%d, cfgSDS=%d, cfgLS=%d, uptS=%d, rtcHS=%d, sdtS=%d, utc=%d\n", powerStatus2.getHasUSB(),
-                  powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent(),
+        LOG_DEBUG("Battery{PTS}: usbPower=%d, isCharging=%d, batMv=%d, batPct=%d, cfgOBS=%d, cfgSDS=%d, cfgLS=%d, uptS=%d, rtcHS=%d, sdtS=%d, utc=%d, bat2=%d, batC=%d\n",
+                  powerStatus2.getHasUSB(), powerStatus2.getIsCharging(), powerStatus2.getBatteryVoltageMv(), powerStatus2.getBatteryChargePercent(),
                   config.power.on_battery_shutdown_after_secs, config.power.sds_secs, config.power.ls_secs,
-                  pts_dev_uptime_sec, pts_rtc_sec_hour, pts_shutdowntime_sec, pts_dev_rtcuptime) ;
+                  pts_dev_uptime_sec, pts_rtc_sec_hour, pts_shutdowntime_sec, pts_dev_rtcuptime, pts_batterycharge_2pct, pts_batterycharge_cnt);
 
         if (pts_shutdowntime_sec > 0) {
           LOG_DEBUG("Battery{PTS}: doDeepSleep(%d s)\n",pts_shutdowntime_sec);
