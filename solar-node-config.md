@@ -35,6 +35,15 @@ Heltec Wireless Stick is suitable for solar nodes for sensors or for small mesh 
 * Super deep sleep: 43205 ~ 5 minutes interval on battery <20%, 12 hours deep sleep on battery <10%
 * Light sleep: 228 ~ 15 minutes long interval and safe every 8 hours, 228 seconds light sleep
 
+standard firmware (without fork):
+
+* Enable power saving: TRUE ~ use light sleep
+* Shutdown on battery delay; 0 ~ avoid deep sleep on battery charge detection issue
+* Wait for Bluetooth: 25 ~ after 25 seconds in light sleep
+* Super deep sleep: 43200 ~ 12 hours deep sleep on battery <10%
+* Light sleep: 300 ~ 300 seconds light sleep
+
+
 ### Display
 
 * Screen timeout: 1 ~ switch off directly
