@@ -39,6 +39,8 @@
 //>>> Power Timer Switch
 uint32_t pts_shutdowntime_sec = 0;      // shutdown time until next hour
 bool     pts_saveprefs_flag = false;    // reduce flash write ops
+uint8_t  pts_batterycharge_2pct = 100;  // unknown after boot init 50%
+uint8_t  pts_batterycharge_cnt = 0;     // count messurements
 //<<<fork<<<
 
 #ifdef ARCH_ESP32
@@ -244,7 +246,7 @@ void setup()
 
 //>>>fork>>> Boot Info
     // LOG_INFO("\n\n//\\ E S H T /\\ S T / C\n\n");
-    LOG_INFO("\n\n//\\ E S H T /\\ S T / C\n\nmeshtastic/f24196a\n\n");  // 2024-06-10 Build-a = 20(24)-(06)-(10) = 24000+06*31+10
+    LOG_INFO("\n\n//\\ E S H T /\\ S T / C\n\nmeshtastic/f24196b\n\n");  // 2024-06-10 Build-b = 20(24)-(06)-(10) = 24000+06*31+10
 //<<<fork<<<
 
     initDeepSleep();
