@@ -137,7 +137,7 @@ static void drawIconScreen(const char *upperMsg, OLEDDisplay *display, OLEDDispl
     // display->drawString(x + getStringCenteredX(title), y + SCREEN_HEIGHT - FONT_HEIGHT_MEDIUM, title);
 
     //>>> release+build
-    String title = "meshtastic/f24196a"; // 2024-06-10 Build-a = 20(24)-(06)-(10) = 4000+06*31+10
+    String title = "meshtastic/f24196b"; // 2024-06-10 Build-b = 20(24)-(06)-(10) = 4000+06*31+10
     display->setFont(FONT_SMALL);
     display->setTextAlignment(TEXT_ALIGN_LEFT);
     display->drawString(x + getStringCenteredX(title), y + SCREEN_HEIGHT - 2*FONT_HEIGHT_SMALL - 1, title);
