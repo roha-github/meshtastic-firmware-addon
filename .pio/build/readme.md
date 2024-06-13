@@ -7,7 +7,7 @@
 | Heltec Wireless Tracker V1.0 | firmware-heltec-wireless-tracker-V1-0-2.3.12.f24196b.factory.bin |
 | Heltec Wireless Stick Lite V3 | firmware-heltec-wsl-v3-2.3.12.f24196b.factory.bin |
 | T-Beam | firmware-tbeam-2.3.12.f24196b.factory.bin |
-| T-Beam S3 Core | firmware-tbeam-s3-core-2.3.12.f24196b.bin.factory.bin |
+| T-Beam S3 Core | firmware-tbeam-s3-core-2.3.12.f24196b.factory.bin |
 | T-LoRa T3-S3 | firmware-tlora-t3s3-v1-2.3.12.f24196b.factory.bin |
 | T-LoRa 2.1-1.6 | firmware-tlora-v2-1-1_6-2.3.12.f24196b.factory.bin |
 
