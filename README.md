@@ -73,11 +73,7 @@ The newest binary you can download from [meshtastic-firmware-addon/tree/master/.
 
 **Extend range:**
 
-* towards: sender(3) > repeater_a(3) > repeater_b(3) > hop_a(3) > hop_b(2) > hop_c(1) > receiver(0)
-* backwards: sender(0) < repeater_a(1) < repeater_b(1) < hop_a(1) < hop_b(2) < hop_c(3) < receiver(3)
-* useful for repeater chain in remote locations or caves - 3 hops are not enough to reach the mesh
-
-The number of hops is limited to 3 by default. If a remote location already requires 3 hops to reach the first foreign node, then there are no hops left for responses from foreign nodes, unless everyone in the mesh would increase the hop limit.
+This feature is NOT recommended for public use with LongFast and only in caves with e.g. MediumFast.
 
 The feature is intended for longer chains of 20-30 repeaters or routers to connect a remote outback to a central mesh or in caves. The transmission of the message takes 3-5 seconds per hop, i.e. up to one minute with 10 repeaters.
 
