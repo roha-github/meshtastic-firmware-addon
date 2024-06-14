@@ -2,7 +2,7 @@
 
 This is a fork of the Meshtastic firmware to provide additional features
 
-* "Zero Hop Repeater" ~ unlimited repeater chain
+* "Zero Hop Repeater inside Caves" ~ unlimited repeater chain
 * "Power Timer Switch" ~ predefined shutdown and resume
 
 These features will not be included in the official Meshtastic firmware.
@@ -11,7 +11,7 @@ These features will not be included in the official Meshtastic firmware.
 
 We use "special" values to configure the add-ons and reuse default App and CLI.
 
-### Zero Hop Repeater
+### Zero Hop Repeater inside Caves
 
 ```
 config.device.node_info_broadcast_secs      = 3601    # 1 enabled | 0 disable zero hops
@@ -67,7 +67,7 @@ The installation requires the esptool, the installer of the original firmware an
 
 The newest binary you can download from [meshtastic-firmware-addon/tree/master/.pio/build](https://github.com/roha-github/meshtastic-firmware-addon/tree/master/.pio/build) or compile to your target hardware.
 
-## Zero Hop Repeater
+## Zero Hop Repeater inside Caves
 
 **Extend range:**
 
