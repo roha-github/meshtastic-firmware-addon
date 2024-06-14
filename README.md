@@ -67,15 +67,13 @@ The installation requires the esptool, the installer of the original firmware an
 
 The newest binary you can download from [meshtastic-firmware-addon/tree/master/.pio/build](https://github.com/roha-github/meshtastic-firmware-addon/tree/master/.pio/build) or compile to your target hardware.
 
-
-
 ## Zero Hop Repeater
 
 **Extend range:**
 
 This feature is NOT recommended for public use with LongFast and only in caves with e.g. MediumFast.
 
-The feature is intended for longer chains of 20-30 repeaters or routers to connect a remote outback to a central mesh or in caves. The transmission of the message takes 3-5 seconds per hop, i.e. up to one minute with 10 repeaters.
+The feature is intended for longer chains of 20-30 repeaters or routers in caves. The transmission of the message takes 3-5 seconds per hop, i.e. up to one minute with 10 repeaters.
 
 Note: use this feature with caution. Meshtastic stores the ID of the sender and message for 10 minutes so that they are not rebroadcast again. Theoretically, infinite loops could occur if there is a lot of traffic in the mesh network and the buffer for the message ID that has already been sent overflows. 
 
