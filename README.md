@@ -71,7 +71,7 @@ The newest binary you can download from [meshtastic-firmware-addon/tree/master/.
 
 **Extend range:**
 
-This feature is NOT recommended for public use with LongFast and only in caves with e.g. MediumFast.
+This feature is NOT recommended for public use with LongFast and only in [caves](https://github.com/semper-ad-fundum/vangelis?tab=readme-ov-file#battery-life-testing) with e.g. MediumFast.
 
 The feature is intended for longer chains of 20-30 repeaters or routers in caves. The transmission of the message takes 3-5 seconds per hop, i.e. up to one minute with 10 repeaters.
 
