@@ -192,6 +192,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 
 ## Ideas
 
+* change fix position via admin channel for static router on hills
 * autoreply for direct message to router with hint "contact owner at node XYZ"
 * select battery type [#3910](https://github.com/meshtastic/firmware/issues/3910)
 * custom wifi power [#2267](https://github.com/meshtastic/firmware/issues/2267)
