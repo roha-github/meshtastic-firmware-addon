@@ -211,7 +211,7 @@ By default nodes send time inside position frame every 900 seconds. Once a day a
 * auto confirm public wifi conditions
 * inverval pax counter with deep sleep [#d12648](https://meshtastic.discourse.group/t/paxcounter-high-potential-modul-android/12648/4)
 * pax counter radius (rssi minimum) [#3885](https://github.com/meshtastic/firmware/issues/3885)
-* one button control e.g. for canned messages
+* one button control e.g. for canned messages (hook button [#](https://github.com/meshtastic/firmware/blob/626aa762df18ea2deab5a1a8a350a65e5c5977b8/src/ButtonThread.cpp#L154))
 * Heltec Wireless Stick OLED-display [#3714](https://github.com/meshtastic/firmware/discussions/3714)
 * adjust hops to own limit [#3833](https://github.com/meshtastic/firmware/discussions/3833)
 * remove old nodes from nodedb
